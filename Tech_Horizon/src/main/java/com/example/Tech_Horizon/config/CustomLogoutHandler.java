@@ -1,8 +1,10 @@
 package com.example.Tech_Horizon.config;
 
 import com.example.Tech_Horizon.entity.DonorToken;
+import com.example.Tech_Horizon.entity.InstituteToken;
 import com.example.Tech_Horizon.entity.SupplierToken;
 import com.example.Tech_Horizon.repository.DonorTokenRepository;
+import com.example.Tech_Horizon.repository.InstituteTokenRepository;
 import com.example.Tech_Horizon.repository.SupplierTokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,14 +21,17 @@ public class CustomLogoutHandler implements LogoutHandler
 {
     private final DonorTokenRepository donorTokenRepository;
     private final SupplierTokenRepository supplierTokenRepository;
+    private final InstituteTokenRepository instituteTokenRepository;
 
     @Autowired
     public CustomLogoutHandler(
             DonorTokenRepository donorTokenRepository,
-            SupplierTokenRepository supplierTokenRepository
+            SupplierTokenRepository supplierTokenRepository,
+            InstituteTokenRepository instituteTokenRepository
     ) {
         this.donorTokenRepository = donorTokenRepository;
         this.supplierTokenRepository = supplierTokenRepository;
+        this.instituteTokenRepository = instituteTokenRepository;
     }
 
     @Override
@@ -45,6 +50,7 @@ public class CustomLogoutHandler implements LogoutHandler
         String jwtToken=authHeader.substring(7);
         Optional<DonorToken> optionalDonorToken=donorTokenRepository.findByToken(jwtToken);
         Optional<SupplierToken> optionalSupplierToken=supplierTokenRepository.findByToken(jwtToken);
+        Optional<InstituteToken> optionalInstituteToken=instituteTokenRepository.findByToken(jwtToken);
         if(optionalDonorToken.isPresent())
         {
             DonorToken donorToken=optionalDonorToken.get();
@@ -56,6 +62,12 @@ public class CustomLogoutHandler implements LogoutHandler
             SupplierToken supplierToken=optionalSupplierToken.get();
             supplierToken.setLoggedOut(true);
             supplierTokenRepository.save(supplierToken);
+        }
+        else if(optionalInstituteToken.isPresent())
+        {
+            InstituteToken instituteToken=optionalInstituteToken.get();
+            instituteToken.setLoggedOut(true);
+            instituteTokenRepository.save(instituteToken);
         }
 
     }

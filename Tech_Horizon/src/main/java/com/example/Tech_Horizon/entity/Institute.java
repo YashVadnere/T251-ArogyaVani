@@ -2,7 +2,6 @@ package com.example.Tech_Horizon.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,45 +19,45 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "suppliers")
-public class Supplier implements UserDetails
+@Table(name = "institutes")
+public class Institute implements UserDetails
 {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator ="supplier_id"
+            generator = "institute_id"
     )
     @SequenceGenerator(
-            name = "supplier_id",
-            sequenceName = "supplier_id",
+            name = "institute_id",
+            sequenceName = "institute_id",
             allocationSize = 1
     )
-    private Long supplierId;
-    @NotBlank(message = "Shop registration Id required")
-    private String registrationId;
-    @NotBlank(message = "Shop name required")
-    private String shopName;
-    @NotBlank(message = "Owner name required")
-    private String ownerName;
-    @NotBlank(message = "Email required")
-    @Email(message = "Invalid email format")
+    private Long instituteId;
+    @NotBlank(message = "Registration number is required")
+    @Column(unique = true)
+    private String registrationNumber;
+    @NotBlank(message = "Institute name is required")
+    private String instituteName;
+    @NotBlank(message = "Person incharge is required")
+    private String personIncharge;
+    @NotBlank(message = "Email is required")
     @Column(unique = true)
     private String email;
-    @NotBlank(message = "Password required")
+    @NotBlank(message = "Password is required")
     private String password;
-    @NotBlank(message = "Address Required")
+    @NotBlank(message = "Address is required")
     private String address;
-    @NotBlank(message = "Category required")
+    @NotBlank(message = "Category is required")
     private String category;
 
-    @OneToMany(mappedBy = "supplier")
+    @OneToMany(mappedBy = "institute")
     @JsonIgnore
-    private List<SupplierToken> supplierTokens;
+    private List<InstituteToken> instituteTokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        return List.of(new SimpleGrantedAuthority("ROLE_SUPPLIER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_INSTITUTE"));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.example.Tech_Horizon.controller;
 
 import com.example.Tech_Horizon.dto.request.SignInRequestDto;
-import com.example.Tech_Horizon.dto.request.donor.DonorSignUpRequestDto;
+import com.example.Tech_Horizon.dto.request.DonorSignUpRequestDto;
 import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.service.DonorAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;

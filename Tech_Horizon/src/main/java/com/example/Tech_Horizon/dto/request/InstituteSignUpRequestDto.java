@@ -1,4 +1,4 @@
-package com.example.Tech_Horizon.dto.request.donor;
+package com.example.Tech_Horizon.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DonorSignUpRequestDto
+public class InstituteSignUpRequestDto
 {
-    private String fullName;
+    private String registrationNumber;
+    private String instituteName;
+    private String personIncharge;
     private String email;
     private String password;
-    private String phoneNumber;
     private String address;
+    private String category;
 }

@@ -2,7 +2,7 @@ package com.example.Tech_Horizon.service;
 
 import com.example.Tech_Horizon.config.JwtService;
 import com.example.Tech_Horizon.dto.request.SignInRequestDto;
-import com.example.Tech_Horizon.dto.request.donor.DonorSignUpRequestDto;
+import com.example.Tech_Horizon.dto.request.DonorSignUpRequestDto;
 import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.entity.Donor;
 import com.example.Tech_Horizon.entity.DonorToken;

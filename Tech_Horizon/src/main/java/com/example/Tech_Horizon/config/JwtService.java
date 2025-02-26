@@ -1,8 +1,10 @@
 package com.example.Tech_Horizon.config;
 
 import com.example.Tech_Horizon.entity.DonorToken;
+import com.example.Tech_Horizon.entity.InstituteToken;
 import com.example.Tech_Horizon.entity.SupplierToken;
 import com.example.Tech_Horizon.repository.DonorTokenRepository;
+import com.example.Tech_Horizon.repository.InstituteTokenRepository;
 import com.example.Tech_Horizon.repository.SupplierTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -26,6 +28,7 @@ public class JwtService
 
     private final DonorTokenRepository donorTokenRepository;
     private final SupplierTokenRepository supplierTokenRepository;
+    private final InstituteTokenRepository instituteTokenRepository;
 
 
     @Value("${spring.security.SECRET_KEY}")
@@ -36,10 +39,12 @@ public class JwtService
     @Autowired
     public JwtService(
             DonorTokenRepository donorTokenRepository,
-            SupplierTokenRepository supplierTokenRepository
+            SupplierTokenRepository supplierTokenRepository,
+            InstituteTokenRepository instituteTokenRepository
     ) {
         this.donorTokenRepository = donorTokenRepository;
         this.supplierTokenRepository = supplierTokenRepository;
+        this.instituteTokenRepository = instituteTokenRepository;
     }
 
     public String generateToken(UserDetails userDetails)
@@ -89,6 +94,7 @@ public class JwtService
         boolean isValid=false;
         Optional<DonorToken> optionalDonorToken=donorTokenRepository.findByToken(jwtToken);
         Optional<SupplierToken> optionalSupplierToken=supplierTokenRepository.findByToken(jwtToken);
+        Optional<InstituteToken> optionalInstituteToken=instituteTokenRepository.findByToken(jwtToken);
         if(optionalDonorToken.isPresent())
         {
             DonorToken donorToken=optionalDonorToken.get();
@@ -101,6 +107,14 @@ public class JwtService
         {
             SupplierToken supplierToken=optionalSupplierToken.get();
             if(supplierToken.isLoggedOut()==false)
+            {
+                isValid=true;
+            }
+        }
+        else if(optionalInstituteToken.isPresent())
+        {
+            InstituteToken instituteToken=optionalInstituteToken.get();
+            if(instituteToken.isLoggedOut()==false)
             {
                 isValid=true;
             }

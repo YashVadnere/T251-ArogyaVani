@@ -1,6 +1,5 @@
 package com.example.Tech_Horizon.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,13 +14,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "donor_tokens")
-public class DonorToken extends Token
+@Table(name = "institute_tokens")
+public class InstituteToken extends Token
 {
     @ManyToOne
     @JoinColumn(
-            name = "donor_id",
-            referencedColumnName = "donorId"
+            name = "institute_id",
+            referencedColumnName = "instituteId"
     )
-    private Donor donor;
+    private Institute institute;
 }

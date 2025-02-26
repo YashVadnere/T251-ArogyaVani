@@ -1,10 +1,13 @@
 package com.example.Tech_Horizon.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,7 +48,7 @@ public class Donor implements UserDetails
     private String address;
 
     @OneToMany(mappedBy = "donor")
-    @JsonManagedReference
+    @JsonIgnore
     private List<DonorToken> donorTokens;
 
     @Override
