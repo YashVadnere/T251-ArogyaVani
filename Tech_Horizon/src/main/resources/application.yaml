@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Tech_Horizon
+    username: postgres
+    password: '0000'
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+    show-sql: true
+    format_sql: true
+
+  security:
+    SECRET_KEY: "N7yOceDXKfUAFbUIl2TUqLh1hBs1o+uShl5wfvXIhjE="
+    EXPIRATION: 3600000
+
+  mail:
+    username: arogyavani243@gmail.com
+    password: "rgdu vmzn sqzt ukpq"
