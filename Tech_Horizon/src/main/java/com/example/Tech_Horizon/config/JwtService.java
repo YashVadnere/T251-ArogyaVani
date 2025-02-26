@@ -1,7 +1,9 @@
 package com.example.Tech_Horizon.config;
 
 import com.example.Tech_Horizon.entity.DonorToken;
+import com.example.Tech_Horizon.entity.SupplierToken;
 import com.example.Tech_Horizon.repository.DonorTokenRepository;
+import com.example.Tech_Horizon.repository.SupplierTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -23,6 +25,7 @@ public class JwtService
 {
 
     private final DonorTokenRepository donorTokenRepository;
+    private final SupplierTokenRepository supplierTokenRepository;
 
 
     @Value("${spring.security.SECRET_KEY}")
@@ -31,9 +34,12 @@ public class JwtService
     private int EXPIRATION;
 
     @Autowired
-    public JwtService(DonorTokenRepository donorTokenRepository)
-    {
+    public JwtService(
+            DonorTokenRepository donorTokenRepository,
+            SupplierTokenRepository supplierTokenRepository
+    ) {
         this.donorTokenRepository = donorTokenRepository;
+        this.supplierTokenRepository = supplierTokenRepository;
     }
 
     public String generateToken(UserDetails userDetails)
@@ -82,10 +88,19 @@ public class JwtService
         String username=extractUsername(jwtToken);
         boolean isValid=false;
         Optional<DonorToken> optionalDonorToken=donorTokenRepository.findByToken(jwtToken);
+        Optional<SupplierToken> optionalSupplierToken=supplierTokenRepository.findByToken(jwtToken);
         if(optionalDonorToken.isPresent())
         {
             DonorToken donorToken=optionalDonorToken.get();
             if(donorToken.isLoggedOut()==false)
+            {
+                isValid=true;
+            }
+        }
+        else if(optionalSupplierToken.isPresent())
+        {
+            SupplierToken supplierToken=optionalSupplierToken.get();
+            if(supplierToken.isLoggedOut()==false)
             {
                 isValid=true;
             }

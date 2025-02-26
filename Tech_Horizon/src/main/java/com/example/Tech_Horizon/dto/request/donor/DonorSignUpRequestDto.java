@@ -1,4 +1,4 @@
-package com.example.Tech_Horizon.dto.request;
+package com.example.Tech_Horizon.dto.request.donor;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

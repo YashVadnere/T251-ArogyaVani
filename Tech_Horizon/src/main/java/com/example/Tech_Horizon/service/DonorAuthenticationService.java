@@ -1,13 +1,14 @@
 package com.example.Tech_Horizon.service;
 
 import com.example.Tech_Horizon.config.JwtService;
-import com.example.Tech_Horizon.dto.request.DonorSignInRequestDto;
-import com.example.Tech_Horizon.dto.request.DonorSignUpRequestDto;
+import com.example.Tech_Horizon.dto.request.SignInRequestDto;
+import com.example.Tech_Horizon.dto.request.donor.DonorSignUpRequestDto;
 import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.entity.Donor;
 import com.example.Tech_Horizon.entity.DonorToken;
 import com.example.Tech_Horizon.repository.DonorRepository;
 import com.example.Tech_Horizon.repository.DonorTokenRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -46,6 +47,10 @@ public class DonorAuthenticationService
 
     public ResponseDto signUpDonor(DonorSignUpRequestDto dto)
     {
+        if (donorRepository.findByEmail(dto.getEmail()).isPresent())
+        {
+            throw new IllegalArgumentException("Email is already registered");
+        }
         Donor donor=donorAuthenticationDtoToDonorMapper(dto);
         donorRepository.save(donor);
         ResponseDto responseDto=new ResponseDto();
@@ -64,7 +69,7 @@ public class DonorAuthenticationService
         return donor;
     }
 
-    public ResponseDto signInDonor(DonorSignInRequestDto dto)
+    public ResponseDto signInDonor(SignInRequestDto dto)
     {
         Optional<Donor> optionalDonor=donorRepository.findByEmail(dto.getEmail());
         Authentication authentication= authenticationManager.authenticate(
@@ -97,6 +102,7 @@ public class DonorAuthenticationService
         donorTokenRepository.save(donorToken);
     }
 
+    @Transactional
     private void revokeAllTokens(Donor donor)
     {
         List<DonorToken> donorTokenList=donorTokenRepository.findAllByDonor_DonorId(donor.getDonorId());

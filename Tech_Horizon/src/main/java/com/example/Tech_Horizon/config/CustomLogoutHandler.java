@@ -1,7 +1,9 @@
 package com.example.Tech_Horizon.config;
 
 import com.example.Tech_Horizon.entity.DonorToken;
+import com.example.Tech_Horizon.entity.SupplierToken;
 import com.example.Tech_Horizon.repository.DonorTokenRepository;
+import com.example.Tech_Horizon.repository.SupplierTokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,15 @@ import java.util.Optional;
 public class CustomLogoutHandler implements LogoutHandler
 {
     private final DonorTokenRepository donorTokenRepository;
+    private final SupplierTokenRepository supplierTokenRepository;
 
     @Autowired
-    public CustomLogoutHandler(DonorTokenRepository donorTokenRepository)
-    {
+    public CustomLogoutHandler(
+            DonorTokenRepository donorTokenRepository,
+            SupplierTokenRepository supplierTokenRepository
+    ) {
         this.donorTokenRepository = donorTokenRepository;
+        this.supplierTokenRepository = supplierTokenRepository;
     }
 
     @Override
@@ -38,11 +44,18 @@ public class CustomLogoutHandler implements LogoutHandler
 
         String jwtToken=authHeader.substring(7);
         Optional<DonorToken> optionalDonorToken=donorTokenRepository.findByToken(jwtToken);
+        Optional<SupplierToken> optionalSupplierToken=supplierTokenRepository.findByToken(jwtToken);
         if(optionalDonorToken.isPresent())
         {
             DonorToken donorToken=optionalDonorToken.get();
             donorToken.setLoggedOut(true);
             donorTokenRepository.save(donorToken);
+        }
+        else if(optionalSupplierToken.isPresent())
+        {
+            SupplierToken supplierToken=optionalSupplierToken.get();
+            supplierToken.setLoggedOut(true);
+            supplierTokenRepository.save(supplierToken);
         }
 
     }
