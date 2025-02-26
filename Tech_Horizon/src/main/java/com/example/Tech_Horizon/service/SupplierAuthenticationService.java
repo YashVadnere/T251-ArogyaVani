@@ -69,6 +69,7 @@ public class SupplierAuthenticationService
         supplier.setOwnerName(dto.getOwnerName());
         supplier.setEmail(dto.getEmail());
         supplier.setPassword(passwordEncoder.encode(dto.getPassword()));
+        supplier.setAddress(dto.getAddress());
         supplier.setCategory(dto.getCategory());
         return supplier;
     }

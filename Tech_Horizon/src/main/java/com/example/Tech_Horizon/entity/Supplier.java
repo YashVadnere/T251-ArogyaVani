@@ -34,8 +34,8 @@ public class Supplier implements UserDetails
             allocationSize = 1
     )
     private Long supplierId;
-    @NotBlank(message = "Shop registration ID required")
-    private String registrationId;
+    @NotBlank(message = "Shop registration number required")
+    private String registrationNumber;
     @NotBlank(message = "Shop name required")
     private String shopName;
     @NotBlank(message = "Owner name required")
