@@ -24,16 +24,19 @@ public class SecurityConfig
     private final JwtService jwtService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
+    private final CustomLogoutHandler customLogoutHandler;
 
     @Autowired
     public SecurityConfig(
             JwtService jwtService,
             JwtAuthenticationFilter jwtAuthenticationFilter,
-            UserDetailsService userDetailsService
+            UserDetailsService userDetailsService,
+            CustomLogoutHandler customLogoutHandler
     ) {
         this.jwtService = jwtService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
+        this.customLogoutHandler = customLogoutHandler;
     }
 
     @Bean
@@ -67,9 +70,7 @@ public class SecurityConfig
                 .csrf(csrf->csrf.disable())
                 .authorizeHttpRequests(
                         request->request
-                                .requestMatchers("/auth/state-government/**").permitAll()
-                                .requestMatchers("/state-government/**").hasAnyAuthority("ROLE_STATE_GOVERNMENT")
-                                .requestMatchers("/remote-area/**").hasAnyAuthority("ROLE_STATE_GOVERNMENT")
+                                .requestMatchers("/auth/**").permitAll()
                                 .anyRequest().authenticated()
                 ).sessionManagement(
                         session->session.sessionCreationPolicy
