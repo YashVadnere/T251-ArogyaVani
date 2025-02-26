@@ -5,7 +5,9 @@ import com.example.Tech_Horizon.dto.request.DonorSignInRequestDto;
 import com.example.Tech_Horizon.dto.request.DonorSignUpRequestDto;
 import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.entity.Donor;
+import com.example.Tech_Horizon.entity.DonorToken;
 import com.example.Tech_Horizon.repository.DonorRepository;
+import com.example.Tech_Horizon.repository.DonorTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +17,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,18 +27,21 @@ public class DonorAuthenticationService
     private final DonorRepository donorRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final DonorTokenRepository donorTokenRepository;
 
     @Autowired
     public DonorAuthenticationService(
             PasswordEncoder passwordEncoder,
             DonorRepository donorRepository,
             AuthenticationManager authenticationManager,
-            JwtService jwtService
+            JwtService jwtService,
+            DonorTokenRepository donorTokenRepository
     ) {
         this.passwordEncoder = passwordEncoder;
         this.donorRepository = donorRepository;
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.donorTokenRepository = donorTokenRepository;
     }
 
     public ResponseDto signUpDonor(DonorSignUpRequestDto dto)
@@ -71,11 +77,35 @@ public class DonorAuthenticationService
             if(authentication.isAuthenticated())
             {
                 ResponseDto responseDto=new ResponseDto();
-                responseDto.setMessage(jwtService.generateToken(donor));
+                String jwtToken=jwtService.generateToken(donor);
+                revokeAllTokens(donor);
+                saveToken(jwtToken,donor);
+                responseDto.setMessage(jwtToken);
                 return responseDto;
             }
             throw new BadCredentialsException("Incorrect username or password. Try Again!!!");
         }
         throw new UsernameNotFoundException("User not found by email "+dto.getEmail());
     }
+
+    private void saveToken(String jwtToken, Donor donor)
+    {
+        DonorToken donorToken=new DonorToken();
+        donorToken.setToken(jwtToken);
+        donorToken.setLoggedOut(false);
+        donorToken.setDonor(donor);
+        donorTokenRepository.save(donorToken);
+    }
+
+    private void revokeAllTokens(Donor donor)
+    {
+        List<DonorToken> donorTokenList=donorTokenRepository.findAllByDonor_DonorId(donor.getDonorId());
+        if(!donorTokenList.isEmpty())
+        {
+            donorTokenList.forEach(token->token.setLoggedOut(true));
+            donorTokenRepository.saveAll(donorTokenList);
+        }
+
+    }
+
 }

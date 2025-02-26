@@ -1,5 +1,6 @@
 package com.example.Tech_Horizon.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "donor")
+@Table(name = "donors")
 public class Donor implements UserDetails
 {
     @Id
@@ -42,6 +43,10 @@ public class Donor implements UserDetails
     private String phoneNumber;
     @NotBlank(message = "Address is required")
     private String address;
+
+    @OneToMany(mappedBy = "donor")
+    @JsonManagedReference
+    private List<DonorToken> donorTokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()

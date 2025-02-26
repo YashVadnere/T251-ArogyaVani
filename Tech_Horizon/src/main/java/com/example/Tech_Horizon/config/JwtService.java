@@ -1,9 +1,12 @@
 package com.example.Tech_Horizon.config;
 
+import com.example.Tech_Horizon.entity.DonorToken;
+import com.example.Tech_Horizon.repository.DonorTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -12,16 +15,26 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 @Service
 public class JwtService
 {
 
+    private final DonorTokenRepository donorTokenRepository;
+
+
     @Value("${spring.security.SECRET_KEY}")
     private String SECRET_KEY;
     @Value("${spring.security.EXPIRATION}")
     private int EXPIRATION;
+
+    @Autowired
+    public JwtService(DonorTokenRepository donorTokenRepository)
+    {
+        this.donorTokenRepository = donorTokenRepository;
+    }
 
     public String generateToken(UserDetails userDetails)
     {
@@ -67,8 +80,17 @@ public class JwtService
     public boolean isTokenValid(String jwtToken, UserDetails userDetails)
     {
         String username=extractUsername(jwtToken);
-
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(jwtToken));
+        boolean isValid=false;
+        Optional<DonorToken> optionalDonorToken=donorTokenRepository.findByToken(jwtToken);
+        if(optionalDonorToken.isPresent())
+        {
+            DonorToken donorToken=optionalDonorToken.get();
+            if(donorToken.isLoggedOut()==false)
+            {
+                isValid=true;
+            }
+        }
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(jwtToken) && isValid);
     }
 
     private boolean isTokenExpired(String jwtToken)
