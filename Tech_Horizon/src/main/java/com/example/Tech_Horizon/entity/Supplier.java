@@ -35,7 +35,8 @@ public class Supplier implements UserDetails
     )
     private Long supplierId;
     @NotBlank(message = "Shop registration Id required")
-    private String registrationId;
+    @Column(unique = true)
+    private String gstNumber;
     @NotBlank(message = "Shop name required")
     private String shopName;
     @NotBlank(message = "Owner name required")

@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class SupplierSignUpRequestDto
 {
-    private String registrationId;
+    private String gstNumber;
     private String shopName;
     private String ownerName;
     private String email;

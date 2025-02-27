@@ -62,7 +62,7 @@ public class SupplierAuthenticationService
     private Supplier supplierSignUpDtoToSupplierMapper(SupplierSignUpRequestDto dto)
     {
         Supplier supplier=new Supplier();
-        supplier.setRegistrationId(dto.getRegistrationId());
+        supplier.setGstNumber(dto.getGstNumber());
         supplier.setShopName(dto.getShopName());
         supplier.setOwnerName(dto.getOwnerName());
         supplier.setEmail(dto.getEmail());
