@@ -1,6 +1,7 @@
 package com.example.Tech_Horizon.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -53,6 +54,10 @@ public class Institute implements UserDetails
     @OneToMany(mappedBy = "institute")
     @JsonIgnore
     private List<InstituteToken> instituteTokens;
+
+    @OneToMany(mappedBy = "institute")
+    @JsonManagedReference
+    private List<Requirement> requirements;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()

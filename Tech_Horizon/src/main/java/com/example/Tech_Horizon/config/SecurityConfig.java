@@ -71,6 +71,7 @@ public class SecurityConfig
                 .authorizeHttpRequests(
                         request->request
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/requirement/**").hasAnyAuthority("ROLE_INSTITUTE")
                                 .anyRequest().authenticated()
                 ).sessionManagement(
                         session->session.sessionCreationPolicy
