@@ -6,8 +6,6 @@ import com.example.Tech_Horizon.dto.request.SignInRequestDto;
 import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.entity.Institute;
 import com.example.Tech_Horizon.entity.InstituteToken;
-import com.example.Tech_Horizon.entity.Supplier;
-import com.example.Tech_Horizon.entity.SupplierToken;
 import com.example.Tech_Horizon.repository.InstituteRepository;
 import com.example.Tech_Horizon.repository.InstituteTokenRepository;
 import jakarta.transaction.Transactional;

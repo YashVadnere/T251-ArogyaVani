@@ -1,11 +1,9 @@
 package com.example.Tech_Horizon.service;
 
 import com.example.Tech_Horizon.dto.request.InstituteProductRequestDto;
-import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.entity.InstituteProduct;
 import com.example.Tech_Horizon.repository.InstituteProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
