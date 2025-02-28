@@ -1,5 +1,6 @@
 package com.example.Tech_Horizon.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,10 +31,39 @@ public class Donation
     )
     private Long donationId;
     @NotNull(message = "Quantity is required")
-    private Double quantity;
+    private Long quantity;
     @NotNull(message = "Amount is required")
-    private Double amount;
-    @NotBlank(message = "Status is required")
-    private String status;
+    private Long amount;
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "donor_id",
+            referencedColumnName = "donorId"
+    )
+    @JsonBackReference
+    private Donor donor;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "supplier_id",
+            referencedColumnName = "supplierId"
+    )
+    @JsonBackReference
+    private Supplier supplier;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "requirement_id",
+            referencedColumnName = "requirementId"
+    )
+    @JsonBackReference
+    private Requirement requirement;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "institute_id",
+            referencedColumnName = "instituteId"
+    )
+    private Institute institute;
 }

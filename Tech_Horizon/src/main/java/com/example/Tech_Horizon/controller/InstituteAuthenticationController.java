@@ -4,7 +4,6 @@ import com.example.Tech_Horizon.dto.request.InstituteSignUpRequestDto;
 import com.example.Tech_Horizon.dto.request.SignInRequestDto;
 import com.example.Tech_Horizon.dto.response.ResponseDto;
 import com.example.Tech_Horizon.service.InstituteAuthenticationService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

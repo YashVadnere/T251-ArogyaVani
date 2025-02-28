@@ -1,6 +1,7 @@
 package com.example.Tech_Horizon.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -50,6 +51,10 @@ public class Donor implements UserDetails
     @OneToMany(mappedBy = "donor")
     @JsonIgnore
     private List<DonorToken> donorTokens;
+
+    @OneToMany(mappedBy = "donor")
+    @JsonManagedReference
+    private List<Donation> donations;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()

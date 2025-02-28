@@ -59,6 +59,13 @@ public class Institute implements UserDetails
     @JsonManagedReference
     private List<Requirement> requirements;
 
+    @OneToMany(mappedBy = "institute")
+    @JsonManagedReference
+    private List<InstituteProduct> instituteProducts;
+
+    @OneToMany(mappedBy = "institute")
+    private List<Donation> donations;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {

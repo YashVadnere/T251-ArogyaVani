@@ -1,6 +1,8 @@
 package com.example.Tech_Horizon.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -52,5 +55,9 @@ public class Requirement
     )
     @JsonBackReference
     private Institute institute;
+
+    @OneToMany(mappedBy = "requirement")
+    @JsonManagedReference
+    private List<Donation> donations;
 
 }

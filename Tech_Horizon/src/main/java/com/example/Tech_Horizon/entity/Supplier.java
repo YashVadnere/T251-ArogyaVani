@@ -61,6 +61,10 @@ public class Supplier implements UserDetails
     @JsonManagedReference
     private List<SupplierProduct> supplierProducts;
 
+    @OneToMany(mappedBy = "supplier")
+    @JsonManagedReference
+    private List<Donation> donations;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
