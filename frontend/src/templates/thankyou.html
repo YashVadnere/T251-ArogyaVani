@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-black flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 overflow-y-auto relative">
+
+    <!-- Dynamic Background Effects -->
+    <div class="absolute inset-0 bg-gradient-to-br from-yellow-500 via-purple-700 to-pink-600 opacity-30 blur-3xl"></div>
+    <div class="absolute w-52 h-52 bg-yellow-400 opacity-30 blur-3xl rounded-full top-10 left-10 animate-pulse"></div>
+    <div class="absolute w-40 h-40 bg-purple-500 opacity-40 blur-3xl rounded-full bottom-24 right-14 animate-bounce"></div>
+
+    <!-- Main Content Container -->
+    <section class="relative z-10 max-w-4xl w-full bg-opacity-40 backdrop-blur-2xl border border-gray-600 shadow-2xl rounded-3xl p-8 sm:p-16 text-center text-white animate-fade-in-up overflow-y-auto">
+        
+        <h1 class="text-5xl sm:text-7xl font-extrabold text-yellow-400 animate-glow">✨ Thank You for Your Generosity! ✨</h1>
+        <p class="text-lg sm:text-xl text-gray-200 mt-4 animate-fade-in">Your kindness makes a real impact. We deeply appreciate your support. ❤️</p>
+
+        <!-- Donation Details Card with Glow & Animation -->
+        <div class="mt-10 p-8 bg-gray-900 bg-opacity-50 rounded-xl shadow-xl border border-gray-700 backdrop-blur-2xl hover:shadow-yellow-500 transition-all transform hover:scale-105 animate-float">
+            <h2 class="text-3xl sm:text-4xl font-semibold text-yellow-300 mb-6 animate-fade-in">Donation Details</h2>
+            <div class="space-y-3 sm:space-y-4 text-gray-300 text-lg">
+                <p><span class="font-bold text-white">Order ID:</span> #123456</p>
+                <p><span class="font-bold text-white">Donor Name:</span> John Doe</p>
+                <p><span class="font-bold text-white">Institute:</span> XYZ Foundation</p>
+                <p><span class="font-bold text-white">Store Name:</span> Helping Hands</p>
+                <p><span class="font-bold text-white">Payment Method:</span> UPI</p>
+                <p><span class="font-bold text-white">Item Names:</span> Food & Medicines</p>
+                <p><span class="font-bold text-white">Quantity:</span> 10 Units</p>
+                <p><span class="font-bold text-white">Payment Amount:</span> ₹5,000</p>
+                <p class="text-green-400"><span class="font-bold text-white">Status:</span> ✅ Successful</p>
+                <p><span class="font-bold text-white">Date:</span> 28th Feb 2025</p>
+            </div>
+        </div>
+
+        <!-- Exit Button with Neon Glow Effect -->
+        <button class="mt-10 px-8 py-4 text-xl font-bold bg-gradient-to-r from-yellow-500 to-red-500 text-black rounded-xl shadow-xl hover:shadow-yellow-500 transition-all transform hover:scale-110 animate-glow">
+            Exit
+        </button>
+    </section>
+
+    <!-- Custom Animations -->
+    <style>
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up { animation: fade-in-up 1s ease-out; }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 15px #facc15, 0 0 30px #facc15; }
+            100% { text-shadow: 0 0 25px #facc15, 0 0 50px #facc15; }
+        }
+        .animate-glow { animation: glow 1.5s infinite alternate; }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+        .animate-float { animation: float 3s infinite ease-in-out; }
+    </style>
+
+</body>
+</html>

@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .navbar {
+    background: transparent;
+    backdrop-filter: blur(0px);
+    transition: all 0.8s ease-in-out;
+    height: 80px;
+    padding: 0 3rem; /* Keeps spacing balanced */
+}
+
+/* Navbar on scroll */
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    height: 100px;
+}
+
+/* Navbar Links */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    font-weight: 700;
+    font-size: 1.1rem; /* Optimized for Retina displays */
+}
+
+/* Underline Effect */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #facc15, #f97316);
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #facc15;
+    text-shadow: 0px 0px 12px rgba(255, 215, 0, 0.9);
+}
+
+/* Sign Up Button */
+.sign-up-btn {
+    transition: all 0.3s ease-in-out;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+.sign-up-btn:hover {
+    background: linear-gradient(90deg, #facc15, #f97316);
+    color: black;
+    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.9);
+}
+
+/* Responsive Design */
+@media (min-width: 2560px) {  /* Ultra-wide screens & 3024x1964 MacBook 14" */
+    .navbar {
+        height: 90px;
+        padding: 0 4rem;
+    }
+
+    .navbar.scrolled {
+        height: 110px;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+    }
+
+    .sign-up-btn {
+        padding: 14px 28px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 1512px) { /* MacBook Pro 14-inch (M2 Pro) */
+    .navbar {
+        height: 80px;
+        padding: 0 2.5rem;
+    }
+
+    .navbar.scrolled {
+        height: 100px;
+    }
+
+    .nav-link {
+        font-size: 1.05rem;
+    }
+
+    .sign-up-btn {
+        padding: 11px 22px;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 1440px) { /* Laptops */
+    .navbar {
+        height: 80px;
+        padding: 0 2rem;
+    }
+
+    .navbar.scrolled {
+        height: 100px;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+    }
+
+    .sign-up-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1024px) { /* iPads & smaller laptops */
+    .navbar {
+        height: 70px;
+        padding: 0 1.5rem;
+    }
+
+    .navbar.scrolled {
+        height: 90px;
+    }
+
+    .nav-link {
+        font-size: 0.95rem;
+    }
+
+    .sign-up-btn {
+        padding: 9px 18px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) { /* Tablets */
+    .navbar {
+        height: 65px;
+        padding: 0 1rem;
+    }
+
+    .navbar.scrolled {
+        height: 85px;
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+    }
+
+    .sign-up-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) { /* Mobile devices */
+    .navbar {
+        height: 60px;
+        padding: 0 0.8rem;
+    }
+
+    .navbar.scrolled {
+        height: 80px;
+    }
+
+    .nav-link {
+        font-size: 0.8rem;
+    }
+
+    .sign-up-btn {
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateY(-100%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0%);
+        }
+
+        /* Hamburger Animation */
+        .hamburger span {
+            display: block;
+            width: 35px;
+            height: 4px;
+            background: white;
+            margin: 6px auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Slide background handling */
+        .swiper-slide {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: brightness(85%);
+        }
+
+        /* Dark overlay for better text contrast */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            /* Stronger contrast */
+        }
+
+        /* Hero text styling for a clean, modern look */
+        .hero-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-size: 4rem;
+            /* Larger for better readability */
+            font-weight: 700;
+            max-width: 80%;
+            line-height: 1.4;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+            /* Soft shadow effect */
+            letter-spacing: 0.5px;
+        }
+
+        /* Smooth fade-in and slight lift effect for hero text */
+        .swiper-slide-active .hero-text {
+            opacity: 1;
+            transform: translate(-50%, -45%);
+        }
+
+        /* Navigation buttons with minimalistic style */
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: white;
+            transition: all 0.3s ease-in-out;
+            font-size: 2rem;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.1);
+        }
+
+        /* Custom pagination styles for a clean, modern feel */
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5) !important;
+            width: 12px;
+            height: 12px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: white !important;
+            width: 14px;
+            height: 14px;
+            opacity: 1;
+            transform: scale(1.2);
+            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.6);
+        }
+
+        /* CTA Buttons inside Swiper */
+        .hero-text button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            box-shadow: 0px 5px 15px rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .hero-text button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Swiper Slide Base Styles */
+        .swiper-slide {
+            width: 100%;
+            min-height: 100vh;
+            /* Ensures full screen coverage */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* Mobile Optimization: Keeps Full Height & Width */
+        @media (max-width: 768px) {
+            .swiper-slide {
+                background-size: cover;
+                /* Ensures full coverage on small screens */
+                background-position: center;
+                /* Keeps image centered */
+                min-height: 100vh;
+                /* Ensures full height coverage */
+            }
+        }
+
+        @keyframes bounce-slow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 w-full z-50 py-7 px-6 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center w-full">
+            <!-- Logo -->
+            <a href="#" class="text-white font-extrabold text-4xl tracking-widest uppercase">
+                <span class="text-yellow-400">शक्ति</span>Link
+            </a>
+
+            <!-- Hamburger Menu (Mobile) -->
+            <div id="menu-btn" class="block lg:hidden cursor-pointer hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Menu Items -->
+            <ul id="menu" class="hidden lg:flex space-x-12 text-xl font-semibold uppercase">
+                <li><a href="#" class="nav-link text-white">Home</a></li>
+                <li><a href="#" class="nav-link text-white">How It Works</a></li>
+                <li><a href="#" class="nav-link text-white">Raise Request</a></li>
+                <li><a href="#" class="nav-link text-white">Donate</a></li>
+                <li><a href="#" class="nav-link text-white">Track Donations</a></li>
+                <li><a href="#" class="nav-link text-white">Shops</a></li>
+                <li><a href="#" class="nav-link text-white">Reviews</a></li>
+                <li><a href="#" class="nav-link text-white">Contact</a></li>
+
+            </ul>
+
+            <!-- Sign Up Button -->
+            <a href="#" id="sign-in-btn"
+                class="hidden lg:block px-7 py-3 border-4 border-yellow-400 rounded-full text-yellow-400 font-bold text-lg uppercase tracking-wide sign-up-btn">
+                Sign Up / In
+            </a>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="mobile-menu absolute top-full left-0 w-full bg-black py-6 flex flex-col items-center shadow-lg hidden">
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Home</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">How It Works</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Raise Request</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Donate</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Track Donations</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Shops</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Reviews</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Contact</a>
+        </div>
+    </nav>
+
+
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://i.pinimg.com/736x/29/c9/26/29c92628b3aa2b3703a310ede866aa2c.jpg'); min-height: 100vh; width: 100%;">
+
+                <!-- Darker Overlay for Stronger Contrast -->
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+
+                    <!-- Impactful Heading -->
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug md:leading-tight tracking-wide drop-shadow-lg">
+                        <span class="text-yellow-400 font-bold">ShaktiGiving</span>
+
+
+                    </h1>
+
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        A new way to donate—fraud-free, impactful, and transparent.
+                    </h2>
+
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        Donations fund <b>real essentials</b>, not cash transfers—ensuring trust and full transparency
+                        via AI, Blockchain, and IoT.
+                    </p>
+
+                    <!-- Call to Action Button -->
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-yellow-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-yellow-600 transition-all transform hover:scale-105">
+                        Join Us Today
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20230527/pngtree-children-posing-for-a-portrait-in-india-image_2691274.jpg'); min-height: 100vh; width: 100%;">
+
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug tracking-wide drop-shadow-lg">
+                        <span class="text-red-400 font-bold">End Hunger, Nourish Lives</span>
+
+                    </h1>
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        Your donations put food on the plates of those in need.
+                    </h2>
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        We ensure meals reach the right people—without cash misuse.
+                    </p>
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-red-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-red-600 transition-all transform hover:scale-105">
+                        Donate Food Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://www.gujaratsahay.org/wp-content/uploads/2022/03/child-orphanage-in-ahmedabad.png'); min-height: 100vh; width: 100%;">
+
+                <!-- Dark Overlay for Better Readability -->
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug tracking-wide drop-shadow-lg">
+                        <span class="text-green-400">Medicine Matters</span>
+                        <span class="text-blue-400">/ Every Life Counts</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        Help provide life-saving medications to those who can’t afford them.
+                    </h2>
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        Our system guarantees authentic medicine deliveries directly to patients.
+                    </p>
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-green-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-green-600 transition-all transform hover:scale-105">
+                        Support Medical Aid
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Slide 4 -->
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://wishesandblessings.net/blog/wp-content/uploads/2022/05/DSC00649-1-scaled.jpg'); min-height: 100vh; width: 100%;">
+
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug tracking-wide drop-shadow-lg">
+
+                        <span class="text-yellow-400">Food for All</span>
+                        <span class="text-red-400">/ No One Sleeps Hungry</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        Every meal you give is hope for a better tomorrow.
+                    </h2>
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        Help deliver fresh, nutritious meals to those in need—directly from trusted stores.
+                    </p>
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-red-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-red-600 transition-all transform hover:scale-105">
+                        Donate a Meal
+                    </button>
+                </div>
+            </div>
+
+            <!-- Slide 5: AI-Powered Diagnosis -->
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://ilm-live.storage.googleapis.com/upload/img_cache/file-1464-1e1ce03c930c2119b08c3c8647d31c74.jpg'); min-height: 100vh; width: 100%;">
+
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug tracking-wide drop-shadow-lg">
+                        <span class="text-blue-400">Education</span>
+                        <span class="text-yellow-400">/ Build Their Future</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        Books, uniforms, and hope—your donation makes a difference.
+                    </h2>
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        Fund essential school supplies and education for underprivileged children.
+                    </p>
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-blue-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-blue-600 transition-all transform hover:scale-105">
+                        Support Education
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Slide 6: Voice-Enabled Healthcare -->
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://serudsindia.org/wp-content/uploads/2021/01/children-in-Seruds-Child-care-Institution.jpg'); min-height: 100vh; width: 100%;">
+
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug tracking-wide drop-shadow-lg">
+                        <span class="text-purple-400">Shelter</span>
+                        <span class="text-orange-400">/ A Home for Everyone</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        Help us provide safe and comfortable shelter to those in crisis.
+                    </h2>
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        Your donations fund real housing solutions, not temporary fixes.
+                    </p>
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-orange-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-orange-600 transition-all transform hover:scale-105">
+                        Provide Shelter
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- Slide 7: Remote Doctor Consultations -->
+            <div class="swiper-slide relative flex items-center justify-center px-6 md:px-32 py-24 bg-cover bg-center shadow-xl"
+                style="background-image: url('https://png.pngtree.com/background/20230528/original/pngtree-group-of-children-smiling-while-posing-outside-of-a-house-picture-image_2781324.jpg'); min-height: 100vh; width: 100%;">
+
+                <div class="absolute inset-0 bg-black opacity-70"></div>
+
+                <div
+                    class="hero-content relative flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 md:space-y-10">
+                    <h1
+                        class="text-5xl md:text-8xl font-extrabold text-white leading-snug tracking-wide drop-shadow-lg">
+                        <span class="text-pink-400">Empower Women</span>
+                        <span class="text-teal-400">/ Empower Society</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-5xl font-bold text-white tracking-wide drop-shadow-lg">
+                        Support women’s education, safety, and financial independence.
+                    </h2>
+                    <p class="text-lg md:text-3xl text-gray-300 tracking-wide max-w-3xl leading-relaxed">
+                        Fund training programs, self-defense workshops, and micro-businesses for women.
+                    </p>
+                    <button
+                        class="mt-8 px-8 py-4 md:px-12 md:py-5 bg-pink-500 text-xl md:text-3xl font-bold text-black rounded-full shadow-2xl hover:bg-pink-600 transition-all transform hover:scale-105">
+                        Empower Women
+                    </button>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- Swiper Pagination & Navigation -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+    <section class="w-full flex flex-col md:flex-row">
+        <!-- Left Box -->
+        <div
+            class="w-full md:w-1/3 bg-[#1B3A4B] p-12 md:p-16 lg:p-20 flex flex-col justify-center items-start text-white relative overflow-hidden shadow-xl">
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-snug tracking-tight">
+                Transforming Lives, One Step at a Time.
+            </h2>
+            <p class="mt-4 text-lg text-gray-300">
+                Together, we can break the cycle of poverty and create brighter futures.
+            </p>
+            <a href="#"
+                class="mt-6 md:mt-8 font-semibold text-lg flex items-center transition-transform duration-300 transform hover:translate-x-2 hover:text-green-400">
+                Learn More <span class="ml-2 text-2xl">➡</span>
+            </a>
+        </div>
+
+        <!-- Center Box -->
+        <div
+            class="w-full md:w-1/3 bg-[#0F2A3F] p-12 md:p-16 lg:p-20 flex flex-col justify-center items-start text-white relative overflow-hidden shadow-xl">
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-snug tracking-tight">
+                Every Child Deserves a Future.
+            </h2>
+            <p class="mt-4 text-lg text-gray-300">
+                Your donations provide education, healthcare, and opportunities for children in need.
+            </p>
+            <a href="#"
+                class="mt-6 md:mt-8 font-semibold text-lg flex items-center transition-transform duration-300 transform hover:translate-x-2 hover:text-green-400">
+                Donate Now <span class="ml-2 text-2xl">➡</span>
+            </a>
+        </div>
+
+        <!-- Right Box -->
+        <div
+            class="w-full md:w-1/3 bg-[#14532D] p-12 md:p-16 lg:p-20 flex flex-col justify-center items-start text-white relative overflow-hidden shadow-xl">
+            <h2 class="text-3xl md:text-4xl font-extrabold leading-snug tracking-tight">
+                Clean Water for a Healthier Tomorrow.
+            </h2>
+            <p class="mt-4 text-lg text-gray-300">
+                Safe drinking water changes lives—join us in making a difference.
+            </p>
+            <a href="#"
+                class="mt-6 md:mt-8 font-semibold text-lg flex items-center transition-transform duration-300 transform hover:translate-x-2 hover:text-green-400">
+                Become A Volunteer <span class="ml-2 text-2xl">➡</span>
+            </a>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section class="relative bg-gray-950 text-white py-24 px-6 md:px-20 lg:px-32 overflow-hidden">
+        <!-- Floating Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-black to-gray-900 opacity-75"></div>
+
+        <!-- Title Section -->
+        <div class="relative text-center max-w-5xl mx-auto">
+            <h2
+                class="text-5xl md:text-8xl font-extrabold bg-gradient-to-r from-yellow-400 to-red-500 text-transparent bg-clip-text drop-shadow-3xl tracking-wide">
+                How <span class="text-blue-400">ShaktiLink</span> Works
+            </h2>
+            <p class="text-xl md:text-3xl text-gray-300 mt-6 max-w-4xl mx-auto leading-relaxed">
+                Revolutionizing donations with <span class="font-bold text-white">AI, Blockchain, and
+                    IoT</span>—ensuring <span class="text-yellow-400 font-bold">zero fraud</span> and <span
+                    class="text-green-400 font-bold">100% impact</span>.
+            </p>
+
+        </div>
+
+        <!-- Process Flow Cards -->
+        <div class="relative mt-16 grid gap-12 md:gap-16 lg:gap-20 md:grid-cols-2 lg:grid-cols-3">
+
+            <!-- Step 1 -->
+            <div
+                class="group relative p-8 rounded-3xl bg-gray-800 bg-opacity-50 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-gray-600 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all">
+                <div
+                    class="absolute -top-8 -left-8 bg-yellow-500 text-black px-6 py-2 rounded-full text-xl font-bold shadow-lg">
+                    1</div>
+                <h3 class="text-2xl font-bold text-white mt-4">Donors Select Essentials</h3>
+                <p class="text-lg text-gray-300 mt-3 leading-relaxed">
+                    Choose to donate food, medicines, or education supplies instead of cash, ensuring transparency.
+                </p>
+            </div>
+
+            <!-- Step 2 -->
+            <div
+                class="group relative p-8 rounded-3xl bg-gray-800 bg-opacity-50 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-gray-600 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all">
+                <div
+                    class="absolute -top-8 -left-8 bg-blue-500 text-black px-6 py-2 rounded-full text-xl font-bold shadow-lg">
+                    2</div>
+                <h3 class="text-2xl font-bold text-white mt-4">Shops Fulfill the Order</h3>
+                <p class="text-lg text-gray-300 mt-3 leading-relaxed">
+                    Verified shops package and prepare the selected essentials for delivery.
+                </p>
+            </div>
+
+            <!-- Step 3 -->
+            <div
+                class="group relative p-8 rounded-3xl bg-gray-800 bg-opacity-50 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-gray-600 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all">
+                <div
+                    class="absolute -top-8 -left-8 bg-green-500 text-black px-6 py-2 rounded-full text-xl font-bold shadow-lg">
+                    3</div>
+                <h3 class="text-2xl font-bold text-white mt-4">AI-Powered Verification</h3>
+                <p class="text-lg text-gray-300 mt-3 leading-relaxed">
+                    AI scans deliveries in real-time to ensure quality and prevent fraud.
+                </p>
+            </div>
+
+            <!-- Step 4 -->
+            <div
+                class="group relative p-8 rounded-3xl bg-gray-800 bg-opacity-50 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-gray-600 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all">
+                <div
+                    class="absolute -top-8 -left-8 bg-red-500 text-black px-6 py-2 rounded-full text-xl font-bold shadow-lg">
+                    4</div>
+                <h3 class="text-2xl font-bold text-white mt-4">Blockchain-Based Tracking</h3>
+                <p class="text-lg text-gray-300 mt-3 leading-relaxed">
+                    Every transaction is securely recorded, offering full donor transparency.
+                </p>
+            </div>
+
+            <!-- Step 5 -->
+            <div
+                class="group relative p-8 rounded-3xl bg-gray-800 bg-opacity-50 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-gray-600 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all">
+                <div
+                    class="absolute -top-8 -left-8 bg-purple-500 text-black px-6 py-2 rounded-full text-xl font-bold shadow-lg">
+                    5</div>
+                <h3 class="text-2xl font-bold text-white mt-4">Direct Delivery to Institutes</h3>
+                <p class="text-lg text-gray-300 mt-3 leading-relaxed">
+                    No middlemen—shops deliver directly to verified institutes.
+                </p>
+            </div>
+
+            <!-- Step 6 -->
+            <div
+                class="group relative p-8 rounded-3xl bg-gray-800 bg-opacity-50 backdrop-blur-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] border border-gray-600 hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-all">
+                <div
+                    class="absolute -top-8 -left-8 bg-pink-500 text-black px-6 py-2 rounded-full text-xl font-bold shadow-lg">
+                    6</div>
+                <h3 class="text-2xl font-bold text-white mt-4">Institutes Rate the Service</h3>
+                <p class="text-lg text-gray-300 mt-3 leading-relaxed">
+                    Recipients provide feedback, ensuring only the best suppliers continue.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Call to Action -->
+        <div class="relative text-center mt-20">
+            <button
+                class="px-8 py-4 text-lg md:text-2xl font-bold bg-yellow-500 text-black rounded-full shadow-2xl hover:bg-yellow-600 transition-all transform hover:scale-105">
+                Start Your Impact Today
+            </button>
+        </div>
+
+        <!-- Floating Glow Elements -->
+        <div class="absolute top-0 left-1/3 w-48 h-48 bg-blue-500 opacity-20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-1/4 w-64 h-64 bg-yellow-400 opacity-20 rounded-full blur-3xl"></div>
+
+    </section>
+
+
+
+
+    <section
+        class="relative min-h-screen bg-[#090c1b] text-white flex flex-col items-center px-6 md:px-20 lg:px-32 py-24 overflow-hidden">
+
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
+        <div class="absolute -top-10 left-1/3 w-64 h-64 bg-purple-500 opacity-20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-16 right-1/4 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-[120px]"></div>
+
+        <!-- SECTION TITLE -->
+        <div class="relative text-center max-w-6xl mx-auto">
+            <h2
+                class="text-6xl md:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg tracking-wide">
+                Secure Your Request <span class="text-yellow-400">with ShaktiLink</span>
+            </h2>
+            <p class="text-lg md:text-2xl text-gray-400 mt-6 max-w-4xl mx-auto leading-relaxed">
+                A next-gen verification process ensuring 100% trust & transparency. Your request will go through
+                multiple AI-powered stages.
+            </p>
+        </div>
+
+        <!-- 🚀 INTERACTIVE 3D STEPS (CIRCULAR PROGRESSION) -->
+        <div class="relative mt-24 flex flex-wrap justify-center items-center gap-10">
+
+            <!-- Step 1: Eligibility -->
+            <div
+                class="relative w-64 h-64 bg-opacity-20 backdrop-blur-3xl shadow-lg border border-cyan-500/30 rounded-full flex flex-col items-center justify-center hover:border-cyan-500 hover:shadow-cyan-500/50 transition-all hover:scale-105">
+                <h3 class="text-2xl font-bold text-white">🔍 Eligibility</h3>
+                <p class="text-lg text-gray-300 text-center mt-4">
+                    AI verifies if your institute is officially registered.
+                </p>
+            </div>
+
+            <!-- Step 2: Documentation -->
+            <div
+                class="relative w-64 h-64 bg-opacity-20 backdrop-blur-3xl shadow-lg border border-blue-500/30 rounded-full flex flex-col items-center justify-center hover:border-blue-500 hover:shadow-blue-500/50 transition-all hover:scale-105">
+                <h3 class="text-2xl font-bold text-white">📜 Documents</h3>
+                <p class="text-lg text-gray-300 text-center mt-4">
+                    Upload legal certificates, tax papers, and request details.
+                </p>
+            </div>
+
+            <!-- Step 3: Transparency -->
+            <div
+                class="relative w-64 h-64 bg-opacity-20 backdrop-blur-3xl shadow-lg border border-green-500/30 rounded-full flex flex-col items-center justify-center hover:border-green-500 hover:shadow-green-500/50 transition-all hover:scale-105">
+                <h3 class="text-2xl font-bold text-white">💡 Transparency</h3>
+                <p class="text-lg text-gray-300 text-center mt-4">
+                    Clearly define the aid needed and its purpose.
+                </p>
+            </div>
+
+            <!-- Step 4: Fraud Detection -->
+            <div
+                class="relative w-64 h-64 bg-opacity-20 backdrop-blur-3xl shadow-lg border border-yellow-500/30 rounded-full flex flex-col items-center justify-center hover:border-yellow-500 hover:shadow-yellow-500/50 transition-all hover:scale-105">
+                <h3 class="text-2xl font-bold text-white">🛡️ AI Check</h3>
+                <p class="text-lg text-gray-300 text-center mt-4">
+                    Automated cross-checking with past records to prevent fraud.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- ⚠️ RED ALERT CONSEQUENCES PANEL -->
+        <div
+            class="relative mt-24 w-full max-w-5xl bg-red-900 bg-opacity-40 backdrop-blur-xl rounded-3xl shadow-lg border border-red-500/60 p-10">
+            <h3 class="text-4xl font-bold text-center text-white">⚠️ WARNING: Rule Violations Will Lead to Immediate
+                Action</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+                <div class="flex items-center bg-red-600/30 rounded-lg p-6">
+                    <span class="text-red-400 text-4xl mr-4">❌</span>
+                    <p class="text-lg text-white">Fraudulent applications = Permanent Ban & Legal Action.</p>
+                </div>
+
+                <div class="flex items-center bg-red-600/30 rounded-lg p-6">
+                    <span class="text-red-400 text-4xl mr-4">❌</span>
+                    <p class="text-lg text-white">Misuse of donations = Institute Name Published in Blacklist.</p>
+                </div>
+
+                <div class="flex items-center bg-red-600/30 rounded-lg p-6">
+                    <span class="text-red-400 text-4xl mr-4">❌</span>
+                    <p class="text-lg text-white">Fake documents = Reported to Authorities for Investigation.</p>
+                </div>
+
+                <div class="flex items-center bg-red-600/30 rounded-lg p-6">
+                    <span class="text-red-400 text-4xl mr-4">❌</span>
+                    <p class="text-lg text-white">Copy-paste applications = Auto-Rejection and Future Ban.</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FINAL CTA BUTTON -->
+        <div class="relative text-center mt-20">
+            <button
+                class="px-10 py-4 text-xl md:text-2xl font-bold bg-green-500 text-black rounded-full shadow-2xl hover:bg-green-600 transition-all transform hover:scale-105">
+                Submit Your Request
+            </button>
+        </div>
+
+    </section>
+    <section class="w-full flex flex-col md:flex-row items-center bg-gray-900 py-12 px-6 md:px-16">
+        <!-- Left Content Section -->
+        <div
+            class="w-full md:w-1/2 flex flex-col justify-center bg-gradient-to-br from-[#1B3A4B] to-[#0F2A3F] p-10 md:p-16 lg:p-20 text-white relative shadow-2xl rounded-lg">
+            <!-- Decorative Line -->
+            <div class="absolute top-6 left-8 w-16 h-1 bg-green-400"></div>
+
+            <h2 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-white">
+                Our Core Value. <br> Our Foundation.
+            </h2>
+            <p class="mt-6 text-base md:text-lg text-gray-300 leading-relaxed">
+                Charity law within the UK varies among
+                <span class="underline decoration-green-400">England and Wales, Scotland, and Northern Ireland</span>,
+                but the fundamental principles remain the same.
+                <span class="font-bold text-green-300">Most organizations</span> that are charities.
+            </p>
+
+            <!-- Signup Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row flex-wrap gap-4">
+                <a href="/auth/donor" class="bg-green-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg text-center hover:bg-green-600 transition-transform duration-300 transform hover:scale-105">
+                    Sign Up as User
+                </a>
+                <a href="/auth/vendor" class="bg-blue-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg text-center hover:bg-blue-600 transition-transform duration-300 transform hover:scale-105">
+                    Sign Up as Vendor
+                </a>
+                <a href="/auth/institute" class="bg-yellow-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg text-center hover:bg-yellow-600 transition-transform duration-300 transform hover:scale-105">
+                    Sign Up as Institute
+                </a>
+            </div>
+    
+            <!-- Prevent Overlay Blocking Clicks -->
+            <div class="absolute inset-0 bg-white opacity-5 mix-blend-overlay rounded-lg pointer-events-none"></div>
+        </div>
+
+        <!-- Right Full-Width Image Section -->
+        <div class="w-full md:w-1/2 h-64 md:h-auto relative rounded-lg shadow-2xl overflow-hidden group mt-6 md:mt-0">
+            <!-- Background Gradient Overlay for Better Visibility -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10 pointer-events-none"></div>
+    
+            <!-- Image -->
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2hhcml0eXxlbnwwfHwwfHx8MA%3D%3D"
+                alt="Image"
+                class="w-full h-full object-cover rounded-lg transition-all duration-500 ease-in-out group-hover:scale-105 group-hover:brightness-110">
+
+            <!-- Decorative Border for Depth Effect -->
+            <div class="absolute inset-0 border-4 border-white opacity-20 rounded-lg z-20 pointer-events-none"></div>
+        </div>
+    </section>
+    <section class="bg-gray-900 text-white py-20 px-6 md:px-16 relative">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2
+                class="text-6xl md:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg tracking-wide">
+                Give Hope<span class="text-yellow-400">, Change Lives.</span>
+            </h2>
+            <p class="text-lg md:text-2xl text-gray-400 mt-6 max-w-4xl mx-auto leading-relaxed">
+
+            </p>
+        </div>
+
+        <!-- First Row (Steps 1-4) -->
+        <div class="mt-16 grid grid-cols-1 md:grid-cols-7 gap-8 items-center text-center">
+            <div class="flex flex-col items-center">
+                <img
+                    src="https://files.oaiusercontent.com/file-CQbfQhGiZNNMnTBV7sjN92?se=2025-02-27T03%3A06%3A40Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D3f222b8f-5a31-4319-beeb-41ff0d90c41e.webp&sig=%2BKcYsnAmfb4vZdJpDeGoe1QTHUIb5/4qyIGmh086QdM%3D" />
+                <h3 class="text-2xl font-bold text-yellow-400 mt-4">Step 1</h3>
+                <p class="text-lg text-gray-300 mt-2 max-w-xs">Charitable institutes submit verified requests.</p>
+            </div>
+            <div class="flex justify-center text-5xl text-white">➡️</div>
+
+            <div class="flex flex-col items-center">
+                <img
+                    src="https://files.oaiusercontent.com/file-VTmYaHBbARRKsggrUoqYGH?se=2025-02-27T03%3A06%3A41Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7f0bd389-9fd8-4548-b0bf-ed58fc997233.webp&sig=45EZNt0REde8Sw%2BbwhNHQsYg4%2BQu8dygkgmxhjGLB7Q%3D" />
+                <h3 class="text-2xl font-bold text-blue-400 mt-4">Step 2</h3>
+                <p class="text-lg text-gray-300 mt-2 max-w-xs">You select & donate necessary items—100% transparent.</p>
+            </div>
+            <div class="flex justify-center text-5xl text-white">➡️</div>
+
+            <div class="flex flex-col items-center">
+                <img
+                    src="https://files.oaiusercontent.com/file-4TNf8EwNxVM3zApVWw8W4Z?se=2025-02-27T03%3A06%3A41Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D7340b72c-9e8e-4048-848e-d7da58dba1a1.webp&sig=lywvwuwFXrnpgi08fDN1E6wFfGGk3OuyusRQLUeOBNk%3D" />
+                <h3 class="text-2xl font-bold text-green-400 mt-4">Step 3</h3>
+                <p class="text-lg text-gray-300 mt-2 max-w-xs">AI & blockchain ensure no fraud—every item is verified.
+                </p>
+            </div>
+            <div class="flex justify-center text-5xl text-white">➡️</div>
+
+            <div class="flex flex-col items-center">
+                <img src="https://files.oaiusercontent.com/file-Tshv6FmFQ1T6ASR6ezM1iR?se=2025-02-26T20%3A10%3A26Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Da918aaa0-dd4c-4745-9e5c-c4f4d5c72a93.webp&sig=cXQMsTn5nZfBe0EHF90hq7GtKPSVMe09Sy0NRc9N70c%3D"
+                    class="w-32 md:w-40 h-32 md:h-40 rounded-full shadow-lg" />
+                <h3 class="text-2xl font-bold text-purple-400 mt-4">Step 4</h3>
+                <p class="text-lg text-gray-300 mt-2 max-w-xs">Shops deliver directly—no intermediaries, no corruption.
+                </p>
+            </div>
+        </div>
+
+        <!-- Downward Arrow to Last Step -->
+        <div class="flex justify-center mt-6">
+            <span class="text-5xl text-white">⬇️</span>
+        </div>
+
+        <!-- Last Step -->
+        <div class="mt-8 flex flex-col items-center text-center">
+            <img src="https://files.oaiusercontent.com/file-CiyAXTYWihvBn3Abn3hUNa?se=2025-02-26T20%3A11%3A26Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3Df8073b48-8700-4aa0-a62d-12cd20322607.webp&sig=%2BNBjaXFPnSbcc%2Bi7hH4iB2vRugFYr040vrDq6LIoPjw%3D"
+                class="w-32 md:w-40 h-32 md:h-40 rounded-full shadow-lg" />
+            <h3 class="text-2xl font-bold text-red-400 mt-4">Step 5</h3>
+            <p class="text-lg text-gray-300 mt-2 max-w-xs">You get photos & reports on how your donation helped real
+                people.</p>
+        </div><br><br>
+        <center><a href="#"
+                class="relative inline-block px-8 py-4 text-2xl font-bold text-white uppercase tracking-wide rounded-full transition-all duration-300 bg-gradient-to-r from-yellow-400 to-red-500 shadow-lg hover:shadow-2xl hover:scale-110 hover:from-red-500 hover:to-yellow-400 transform hover:-translate-y-1">
+                Donate Now
+            </a></center>
+
+    </section>
+    <section class="relative bg-gradient-to-br from-gray-900 to-black text-white py-20 px-6 md:px-16 overflow-hidden">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2
+                class="text-6xl md:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg tracking-wide">
+                Select <span class="text-yellow-400">Your Shop</span>
+            </h2>
+            <p class="text-lg md:text-2xl text-gray-400 mt-6 max-w-4xl mx-auto leading-relaxed">
+                xyz
+            </p>
+        </div>
+
+        <!-- Floating Neon Cards for Regulations -->
+        <div class="relative mt-16 grid grid-cols-1 md:grid-cols-3 gap-12 px-6">
+            <div
+                class="relative bg-gray-800 bg-opacity-80 backdrop-blur-lg p-8 rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 border border-blue-500">
+                <h3 class="text-3xl font-bold text-blue-400">Regulations</h3>
+                <ul class="mt-4 text-gray-300 space-y-3">
+                    <li>✅ Must be a verified and licensed seller</li>
+                    <li>✅ No price manipulation allowed</li>
+                    <li>✅ Must follow blockchain tracking protocol</li>
+                    <li>✅ AI-driven quality control checks</li>
+                </ul>
+            </div>
+
+            <div
+                class="relative bg-gray-800 bg-opacity-80 backdrop-blur-lg p-8 rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 border border-green-500">
+                <h3 class="text-3xl font-bold text-green-400">Benefits</h3>
+                <ul class="mt-4 text-gray-300 space-y-3">
+                    <li>🚀 Get listed on a trusted donation network</li>
+                    <li>🚀 Ensure a steady flow of verified customers</li>
+                    <li>🚀 Gain credibility through AI & blockchain security</li>
+                    <li>🚀 Participate in social welfare & build reputation</li>
+                </ul>
+            </div>
+
+            <div
+                class="relative bg-gray-800 bg-opacity-80 backdrop-blur-lg p-8 rounded-2xl shadow-lg transform hover:scale-105 transition duration-300 border border-red-500">
+                <h3 class="text-3xl font-bold text-red-400">Fraud Consequences</h3>
+                <ul class="mt-4 text-gray-300 space-y-3">
+                    <li>⚠️ Permanent ban from the platform</li>
+                    <li>⚠️ Legal actions & heavy fines</li>
+                    <li>⚠️ Loss of credibility & blacklist tagging</li>
+                    <li>⚠️ Public fraud alerts on all networks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Futuristic Call-to-Action -->
+        <div class="mt-20 flex justify-center">
+            <button
+                class="relative bg-gradient-to-r from-blue-500 to-purple-600 text-white px-10 py-4 text-2xl font-bold rounded-full shadow-xl hover:scale-110 transform transition duration-300">
+                Register Your Shop 🚀
+            </button>
+        </div>
+    </section>
+    <section class="relative min-h-screen w-full bg-black text-white px-6 py-16 flex flex-col items-center">
+        <!-- Title -->
+        <h2
+            class="text-6xl md:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg tracking-wide">
+            Your <span class="text-yellow-400">Donation </span>Journey
+        </h2><br><br>
+
+        <!-- Timeline Container -->
+        <div class="relative w-full max-w-4xl">
+            <div
+                class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-600 opacity-50">
+            </div>
+
+            <!-- Timeline Items -->
+            <div class="relative flex flex-col space-y-12">
+                <!-- Step 1: Payment -->
+                <div class="relative flex items-center">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-cyan-400 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pr-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#06b6d4]">
+                            <h2 class="text-2xl font-bold text-cyan-300 mb-3">💸 Payment Made</h2>
+                            <p class="text-sm opacity-90">User donates through ShaktiLink. The transaction is verified
+                                via blockchain.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Shop Selection -->
+                <div class="relative flex items-center flex-row-reverse">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-pink-500 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pl-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#ec4899]">
+                            <h2 class="text-2xl font-bold text-pink-300 mb-3">🏪 Shop Selected</h2>
+                            <p class="text-sm opacity-90">A nearby verified shop is chosen. Vendor is paid securely via
+                                smart contracts.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Packing -->
+                <div class="relative flex items-center">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-500 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pr-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#facc15]">
+                            <h2 class="text-2xl font-bold text-yellow-300 mb-3">📦 Goods Packed</h2>
+                            <p class="text-sm opacity-90">Vendor securely packs items with IoT-enabled seals for
+                                tracking and authenticity.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Quality Check & Pickup -->
+                <div class="relative flex items-center flex-row-reverse">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-green-500 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pl-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#22c55e]">
+                            <h2 class="text-2xl font-bold text-green-300 mb-3">✅ Quality Checked</h2>
+                            <p class="text-sm opacity-90">Delivery partner or institute staff verifies goods & takes a
+                                photo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Delivered & Verified -->
+                <div class="relative flex items-center">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-indigo-500 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pr-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#6366f1]">
+                            <h2 class="text-2xl font-bold text-indigo-300 mb-3">📍 Delivered & Verified</h2>
+                            <p class="text-sm opacity-90">Goods reach the institute, and another verification photo is
+                                taken.</p>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+      
+            <!-- Step 7: Donor Recognition -->
+            <div class="relative flex items-center">
+              <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-orange-500 rounded-full shadow-xl border-4 border-black"></div>
+              <div class="w-1/2 pr-8">
+                <div class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#f97316]">
+                  <h2 class="text-2xl font-bold text-orange-300 mb-3">🏆 Donor Ranking</h2>
+                  <p class="text-sm opacity-90">User's name is displayed in the Top Donors of the Month leaderboard.</p>
+                </div>
+
+                <!-- Step 7: Donor Recognition -->
+                <div class="relative flex items-center">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-orange-500 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pr-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#f97316]">
+                            <h2 class="text-2xl font-bold text-orange-300 mb-3">🏆 Donor Ranking</h2>
+                            <p class="text-sm opacity-90">User's name is displayed in the Top Donors of the Month
+                                leaderboard.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 8: AI Fraud Detection -->
+                <div class="relative flex items-center flex-row-reverse">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-red-500 rounded-full shadow-xl border-4 border-black">
+                    </div>
+                    <div class="w-1/2 pl-8">
+                        <div
+                            class="bg-gray-900 p-6 rounded-xl shadow-lg border border-gray-800 hover:scale-105 transition-all duration-300 hover:shadow-[0_0_30px_#ef4444]">
+                            <h2 class="text-2xl font-bold text-red-300 mb-3">🔍 AI Fraud Detection</h2>
+                            <p class="text-sm opacity-90">System scans for unusual request patterns & prevents
+                                fraudulent activity.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br><br>
+        <a href="#"
+            class="relative inline-block px-8 py-4 text-2xl font-bold text-white uppercase tracking-wide rounded-full transition-all duration-300 bg-gradient-to-r from-yellow-400 to-red-500 shadow-lg hover:shadow-2xl hover:scale-110 hover:from-red-500 hover:to-yellow-400 transform hover:-translate-y-1">
+            Donate Now
+        </a>
+
+    </section>
+    <section class="py-24 relative">
+        <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
+            <h2
+                class="text-6xl md:text-8xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg tracking-wide">
+                <span class="text-yellow-400">ShaktiVoices </span>& Impact
+                <div class="grid grid-cols-12 py-6 border-y border-gray-200 mb-11">
+                    <div class="col-span-12 lg:col-span-10 ">
+                        <h5
+                            class="text-2xl md:text-5xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text drop-shadow-lg tracking-wide">
+                            Your <span class="text-yellow-400">Reviews </span>&Rating
+                        </h5>
+
+
+                    </div>
+                    <div class="col-span-12 lg:col-span-2 max-lg:hidden">
+                        <h5 class="font-manrope font-semibold text-2xl leading-9 text-black text-center">Rating</h5>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-8">
+
+                    <div class="grid grid-cols-12 max-w-sm sm:max-w-full mx-auto">
+                        <div class="col-span-12 lg:col-span-10 ">
+                            <div class="sm:flex gap-6">
+                                <img src="https://pagedone.io/asset/uploads/1704364459.png" alt="Robert image"
+                                    class="w-32 h-32 rounded-full object-cover">
+                                <div class="text">
+                                    <p class="font-medium text-lg leading-8 text-gray-900 mb-2">Robert Karmazov</p>
+                                    <div class="flex lg:hidden items-center gap-2 lg:justify-between w-full mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <p class="font-normal text-base leading-7 text-gray-400 mb-4 lg:pr-8">One of the
+                                        standout features of Pagedone is its intuitive and user-friendly interface.
+                                        Navigating through the system feels natural, and the layout makes it easy to
+                                        locate and utilize various design elements. This is particularly beneficial for
+                                        designers looking to streamline their workflow. </p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="cursor-pointers flex items-center gap-2">
+                                            <a href="javascript:;"
+                                                class="font-semibold text-lg cursor-pointer leading-8 text-indigo-600 whitespace-nowrap">
+                                                View & Reply</a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                viewBox="0 0 22 22" fill="none">
+                                                <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5"
+                                                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                        <p
+                                            class="lg:hidden font-medium text-sm leading-7 text-gray-400 lg:text-center whitespace-nowrap">
+                                            Nov 01, 2023</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-span-12 lg:col-span-2 max-lg:hidden flex lg:items-center flex-row lg:flex-col justify-center max-lg:pt-6 ">
+                            <div class="flex items-center gap-2 lg:justify-between w-full mb-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="font-medium text-lg leading-8 text-gray-400 lg:text-center whitespace-nowrap">Nov
+                                01,
+                                2023</p>
+                        </div>
+                    </div>
+                    <div class="pb-8 border-b border-gray-100 w-full"></div>
+                    <div class="grid grid-cols-12 max-w-sm sm:max-w-full mx-auto">
+                        <div class="col-span-12 lg:col-span-10 ">
+                            <div class="sm:flex gap-6">
+                                <img src="https://pagedone.io/asset/uploads/1704364533.png" alt="Robert image"
+                                    class="w-32 h-32 rounded-full object-cover">
+                                <div class="text">
+                                    <p class="font-medium text-lg leading-8 text-gray-900 mb-2">Robert Karmazov</p>
+                                    <div class="flex lg:hidden items-center gap-2 lg:justify-between w-full mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <p class="font-normal text-base leading-7 text-gray-400 mb-4 lg:pr-8">Pagedone
+                                        excels in addressing the demand for responsive design. Its features ensure that
+                                        designs not only look great on desktop but also seamlessly adapt to various
+                                        screen sizes, providing a consistent user experience across devices.
+
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <a href="javascript:;"
+                                                class="font-semibold text-lg cursor-pointer leading-8 text-indigo-600 whitespace-nowrap">
+                                                View & Reply</a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                viewBox="0 0 22 22" fill="none">
+                                                <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5"
+                                                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                        <p
+                                            class="lg:hidden font-medium text-sm leading-7 text-gray-400 lg:text-center whitespace-nowrap">
+                                            Nov 01, 2023</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-span-12 lg:col-span-2 max-lg:hidden flex lg:items-center flex-row lg:flex-col justify-center max-lg:pt-6 ">
+                            <div class="flex items-center gap-2 lg:justify-between w-full mb-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="font-medium text-lg leading-8 text-gray-400 lg:text-center whitespace-nowrap">Nov
+                                01,
+                                2023</p>
+                        </div>
+                    </div>
+                    <div class="pb-8 border-b border-gray-100 w-full"></div>
+                    <div class="grid grid-cols-12 max-w-sm sm:max-w-full mx-auto">
+                        <div class="col-span-12 lg:col-span-10 ">
+                            <div class="sm:flex gap-6">
+                                <img src="https://pagedone.io/asset/uploads/1704364549.png" alt="Robert image"
+                                    class="w-32 h-32 rounded-full object-cover">
+                                <div class="text">
+                                    <p class="font-medium text-lg leading-8 text-gray-900 mb-2">Robert Karmazov</p>
+                                    <div class="flex lg:hidden items-center gap-2 lg:justify-between w-full mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <p class="font-normal text-base leading-7 text-gray-400 mb-4 lg:pr-8">Collaboration
+                                        is made seamless with Pagedone's collaboration tools. Whether working within a
+                                        team or seeking client feedback, the system facilitates effective communication
+                                        and real-time collaboration, enhancing the overall design process.
+                                    </p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <a href="javascript:;"
+                                                class="font-semibold text-lg cursor-pointer leading-8 text-indigo-600 whitespace-nowrap">
+                                                View & Reply</a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                viewBox="0 0 22 22" fill="none">
+                                                <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5"
+                                                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                        <p
+                                            class="lg:hidden font-medium text-sm leading-7 text-gray-400 lg:text-center whitespace-nowrap">
+                                            Nov 01, 2023</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-span-12 lg:col-span-2 max-lg:hidden flex lg:items-center flex-row lg:flex-col justify-center max-lg:pt-6 ">
+                            <div class="flex items-center gap-2 lg:justify-between w-full mb-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="font-medium text-lg leading-8 text-gray-400 lg:text-center whitespace-nowrap">Nov
+                                01,
+                                2023</p>
+                        </div>
+                    </div>
+                    <div class="pb-8 border-b border-gray-100 w-full"></div>
+                    <div class="grid grid-cols-12 max-w-sm sm:max-w-full mx-auto">
+                        <div class="col-span-12 lg:col-span-10 ">
+                            <div class="sm:flex gap-6">
+                                <img src="https://pagedone.io/asset/uploads/1704364560.png" alt="Robert image"
+                                    class="w-32 h-32 rounded-full object-cover">
+                                <div class="text">
+                                    <p class="font-medium text-lg leading-8 text-gray-900 mb-2">Robert Karmazov</p>
+                                    <div class="flex lg:hidden items-center gap-2 lg:justify-between w-full mb-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                            viewBox="0 0 30 30" fill="none">
+                                            <g clip-path="url(#clip0_13624_2090)">
+                                                <path
+                                                    d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                                    fill="#FBBF24" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_13624_2090">
+                                                    <rect width="30" height="30" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <p class="font-normal text-base leading-7 text-gray-400 mb-4 lg:pr-8">Pagedone
+                                        doesn't disappoint when it comes to the variety and richness of its design
+                                        components. From pre-built templates to customizable elements, the system caters
+                                        to both beginners and seasoned designers. The extensive library ensures a
+                                        diverse range of options to bring creative visions to life. </p>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <a href="javascript:;"
+                                                class="font-semibold text-lg leading-8 text-indigo-600 whitespace-nowrap cursor-pointer">
+                                                View & Reply</a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                                viewBox="0 0 22 22" fill="none">
+                                                <path d="M8.25324 5.49609L13.7535 10.9963L8.25 16.4998" stroke="#4F46E5"
+                                                    stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </div>
+                                        <p
+                                            class="lg:hidden font-medium text-sm leading-7 text-gray-400 lg:text-center whitespace-nowrap">
+                                            Nov 01, 2023</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="col-span-12 lg:col-span-2 max-lg:hidden flex lg:items-center flex-row lg:flex-col justify-center max-lg:pt-6 ">
+                            <div class="flex items-center gap-2 lg:justify-between w-full mb-5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"
+                                    fill="none">
+                                    <g clip-path="url(#clip0_13624_2090)">
+                                        <path
+                                            d="M14.1033 2.56698C14.4701 1.82374 15.5299 1.82374 15.8967 2.56699L19.1757 9.21093C19.3214 9.50607 19.6029 9.71064 19.9287 9.75797L27.2607 10.8234C28.0809 10.9426 28.4084 11.9505 27.8149 12.5291L22.5094 17.7007C22.2737 17.9304 22.1662 18.2614 22.2218 18.5858L23.4743 25.8882C23.6144 26.7051 22.7569 27.3281 22.0233 26.9424L15.4653 23.4946C15.174 23.3415 14.826 23.3415 14.5347 23.4946L7.9767 26.9424C7.24307 27.3281 6.38563 26.7051 6.52574 25.8882L7.7782 18.5858C7.83384 18.2614 7.72629 17.9304 7.49061 17.7007L2.1851 12.5291C1.59159 11.9505 1.91909 10.9426 2.73931 10.8234L10.0713 9.75797C10.3971 9.71064 10.6786 9.50607 10.8243 9.21093L14.1033 2.56698Z"
+                                            fill="#FBBF24" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_13624_2090">
+                                            <rect width="30" height="30" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                            <p class="font-medium text-lg leading-8 text-gray-400 lg:text-center whitespace-nowrap">Nov
+                                01,
+                                2023</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+    <footer class="relative bg-[#050a18] text-gray-300 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+
+            <!-- 🌟 Newsletter Section -->
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-extrabold text-white tracking-wide drop-shadow-lg">
+                    Stay Connected with <span class="text-yellow-400"><a href="#"
+                            class="text-white font-extrabold text-4xl tracking-widest uppercase">
+                            <span class="text-yellow-400">शक्ति</span>Link
+                        </a>
+                    </span>
+                </h2>
+                <p class="text-gray-400 mt-4 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Join our community & get the latest health updates, expert advice, and innovations in telemedicine.
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <input type="email" placeholder="Enter your email"
+                        class="w-96 px-6 py-4 rounded-l-lg bg-white/10 border border-gray-500 text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition placeholder-gray-400">
+                    <button
+                        class="px-8 py-4 bg-yellow-500 text-gray-900 rounded-r-lg text-lg font-semibold hover:bg-yellow-600 transition-all hover:scale-105 shadow-lg">
+                        Subscribe →
+                    </button>
+                </div>
+            </div>
+
+            <!-- 🌟 Footer Links Section -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-gray-400">
+
+                <!-- About ArogyaVani -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">About ShaktiLink</h3>
+                    <p class="leading-relaxed text-lg">
+                        End Hunger, Nourish Lives – Your generosity has the power to transform lives. Every meal you
+                        provide brings hope, strength, and a chance for a brighter future. Join us in making a lasting
+                        impact, one donation at a time.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🔎 Find
+                                Reqest</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">📹
+                                Donate</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">💊
+                                Shop</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🧪
+                                Reviews</li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🔧
+                                Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Us -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">Contact Us</h3>
+                    <p class="text-lg flex items-center gap-2">
+                        📧 <a href="mailto:support@arogyavani.com"
+                            class="hover:text-yellow-400 transition-all">support@arogyavani.com</a>
+                    </p>
+                    <p class="text-lg mt-3 flex items-center gap-2">
+                        📞 <a href="tel:+18001234567" class="hover:text-yellow-400 transition-all">+91 800 123 4567</a>
+                    </p>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">Follow Us</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">📘
+                                Facebook</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">🐦
+                                Twitter</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">📸
+                                Instagram</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- 🌟 Elegant Divider -->
+            <div class="mt-16 border-t border-gray-700 opacity-50"></div>
+
+            <!-- 🌟 Bottom Footer -->
+            <div class="mt-10 flex flex-col sm:flex-row justify-between items-center text-gray-500 text-lg">
+                <p>&copy; 2025 <span class="text-yellow-400 font-semibold">ShaktiLink</span>. All rights reserved.</p>
+                <ul class="flex space-x-6 mt-4 sm:mt-0">
+                    <li><a href="#" class="hover:text-yellow-400 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script>
+        window.addEventListener("scroll", function () {
+            const navbar = document.getElementById("navbar");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            effect: "fade",
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
+
+        const navbar = document.getElementById("navbar");
+        const menuBtn = document.getElementById("menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        // Toggle Mobile Menu & Hamburger Animation
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+            mobileMenu.classList.toggle("active");
+            menuBtn.classList.toggle("active"); // Toggle animation
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+
+    </script>
+    <script src="/static/getLocation.js"></script>
+
+</body>
+
+</html>

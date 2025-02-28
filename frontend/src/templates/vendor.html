@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Navbar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .navbar {
+    background: transparent;
+    backdrop-filter: blur(0px);
+    transition: all 0.8s ease-in-out;
+    height: 80px;
+    padding: 0 3rem; /* Keeps spacing balanced */
+}
+
+/* Navbar on scroll */
+.navbar.scrolled {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    height: 100px;
+}
+
+/* Navbar Links */
+.nav-link {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    font-weight: 700;
+    font-size: 1.1rem; /* Optimized for Retina displays */
+}
+
+/* Underline Effect */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, #facc15, #f97316);
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #facc15;
+    text-shadow: 0px 0px 12px rgba(255, 215, 0, 0.9);
+}
+
+/* Sign Up Button */
+.sign-up-btn {
+    transition: all 0.3s ease-in-out;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+.sign-up-btn:hover {
+    background: linear-gradient(90deg, #facc15, #f97316);
+    color: black;
+    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.9);
+}
+
+/* Responsive Design */
+@media (min-width: 2560px) {  /* Ultra-wide screens & 3024x1964 MacBook 14" */
+    .navbar {
+        height: 90px;
+        padding: 0 4rem;
+    }
+
+    .navbar.scrolled {
+        height: 110px;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+    }
+
+    .sign-up-btn {
+        padding: 14px 28px;
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 1512px) { /* MacBook Pro 14-inch (M2 Pro) */
+    .navbar {
+        height: 80px;
+        padding: 0 2.5rem;
+    }
+
+    .navbar.scrolled {
+        height: 100px;
+    }
+
+    .nav-link {
+        font-size: 1.05rem;
+    }
+
+    .sign-up-btn {
+        padding: 11px 22px;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 1440px) { /* Laptops */
+    .navbar {
+        height: 80px;
+        padding: 0 2rem;
+    }
+
+    .navbar.scrolled {
+        height: 100px;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+    }
+
+    .sign-up-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 1024px) { /* iPads & smaller laptops */
+    .navbar {
+        height: 70px;
+        padding: 0 1.5rem;
+    }
+
+    .navbar.scrolled {
+        height: 90px;
+    }
+
+    .nav-link {
+        font-size: 0.95rem;
+    }
+
+    .sign-up-btn {
+        padding: 9px 18px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 768px) { /* Tablets */
+    .navbar {
+        height: 65px;
+        padding: 0 1rem;
+    }
+
+    .navbar.scrolled {
+        height: 85px;
+    }
+
+    .nav-link {
+        font-size: 0.85rem;
+    }
+
+    .sign-up-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) { /* Mobile devices */
+    .navbar {
+        height: 60px;
+        padding: 0 0.8rem;
+    }
+
+    .navbar.scrolled {
+        height: 80px;
+    }
+
+    .nav-link {
+        font-size: 0.8rem;
+    }
+
+    .sign-up-btn {
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateY(-100%);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0%);
+        }
+
+        /* Hamburger Animation */
+        .hamburger span {
+            display: block;
+            width: 35px;
+            height: 4px;
+            background: white;
+            margin: 6px auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(10px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-10px) rotate(-45deg);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar fixed top-0 left-0 w-full z-50 py-7 px-6 transition-all duration-300">
+        <div class="container mx-auto flex justify-between items-center w-full">
+            <!-- Logo -->
+            <a href="#" class="text-white font-extrabold text-4xl tracking-widest uppercase">
+                <span class="text-yellow-400">शक्ति</span>Link
+            </a>
+
+            <!-- Hamburger Menu (Mobile) -->
+            <div id="menu-btn" class="block lg:hidden cursor-pointer hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <!-- Menu Items -->
+           <center><ul id="menu" class="hidden lg:flex space-x-10 text-lg font-semibold uppercase">
+                <li><a href="#" class="nav-link text-white">Home</a></li>
+                
+                <li><a href="#" class="nav-link text-white"> Orders</a></li>
+                <li><a href="#" class="nav-link text-white"> Inventory </a></li>
+                <li><a href="#" class="nav-link text-white"> Payments</a></li>
+                <li><a href="#" class="nav-link text-white">Messages </a></li>
+                <li><a href="#" class="nav-link text-white"> Support</a></li>
+               
+            </ul></center>
+            <!-- Sign Up Button -->
+            <div class="relative">
+                <a href="#" id="sign-in-btn" class="hidden lg:block px-7 py-3 border-4 border-yellow-400 rounded-full text-yellow-400 font-bold text-lg uppercase tracking-wide">
+                    Profile
+                </a>
+            
+                <!-- Dropdown Menu -->
+                <div id="profile-dropdown" class="absolute right-0 mt-2 w-40 bg-black border border-yellow-400 rounded-lg shadow-lg hidden">
+                    <a href="#" class="block px-4 py-2 text-yellow-400 hover:bg-yellow-500 hover:text-black transition">View Profile</a>
+                    <a href="#" class="block px-4 py-2 text-yellow-400 hover:bg-yellow-500 hover:text-black transition">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu absolute top-full left-0 w-full bg-black py-6 flex flex-col items-center shadow-lg hidden">
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Home</a>
+            
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl"> Notifications</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">transaction</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Inventory</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Messages</a>
+            <a href="#" class="block py-4 text-white hover:text-yellow-400 text-xl">Support</a>
+          
+        </div>
+    </nav>
+    <div class="content-wrapper ">
+        <section class="max-w-7xl mx-auto py-12 px-6">
+            <br><br><br><h2 class="text-5xl font-extrabold text-yellow-400 text-center mb-8">Orders Overview</h2>
+            <p class="text-lg text-gray-300 text-center mb-6">Track all orders with real-time updates and status.</p>
+            
+            <!-- Order Status Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <button class="px-6 py-3 bg-gray-800 text-yellow-400 font-bold rounded-lg hover:bg-yellow-600 hover:text-black transition">All Orders</button>
+                <button class="px-6 py-3 bg-gray-800 text-yellow-400 font-bold rounded-lg hover:bg-yellow-600 hover:text-black transition">Pending</button>
+                <button class="px-6 py-3 bg-gray-800 text-yellow-400 font-bold rounded-lg hover:bg-yellow-600 hover:text-black transition">In-Transit</button>
+                <button class="px-6 py-3 bg-gray-800 text-yellow-400 font-bold rounded-lg hover:bg-yellow-600 hover:text-black transition">Delivered</button>
+            </div>
+            
+            <!-- Orders Table -->
+            <div class="overflow-x-auto bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+                <table class="w-full text-left border-collapse text-lg">
+                    <thead>
+                        <tr class="bg-yellow-500 text-black">
+                            <th class="p-4">Order ID</th>
+                            <th class="p-4">Institution</th>
+                            <th class="p-4">Category</th>
+                            <th class="p-4">Quantity</th>
+                            <th class="p-4">Order Date</th>
+                            <th class="p-4">Status</th>
+                            <th class="p-4">Estimated Delivery</th>
+                            <th class="p-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-900 text-gray-300">
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">#ORD12345</td>
+                            <td class="p-4">Hope Orphanage</td>
+                            <td class="p-4">Food</td>
+                            <td class="p-4">100 kg Rice</td>
+                            <td class="p-4">March 10, 2025</td>
+                            <td class="p-4 text-yellow-400">Pending</td>
+                            <td class="p-4">March 15, 2025</td>
+                            <td class="p-4">
+                                <button class="px-4 py-2 bg-blue-500 text-black font-bold rounded-lg hover:bg-blue-600 transition">Update</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">#ORD67890</td>
+                            <td class="p-4">Elderly Care Home</td>
+                            <td class="p-4">Medical Supplies</td>
+                            <td class="p-4">50 Kits</td>
+                            <td class="p-4">March 8, 2025</td>
+                            <td class="p-4 text-blue-400">In-Transit</td>
+                            <td class="p-4">March 12, 2025</td>
+                            <td class="p-4">
+                                <button class="px-4 py-2 bg-blue-500 text-black font-bold rounded-lg hover:bg-blue-600 transition">Update</button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">#ORD11223</td>
+                            <td class="p-4">Children's Shelter</td>
+                            <td class="p-4">Books</td>
+                            <td class="p-4">200 Storybooks</td>
+                            <td class="p-4">March 5, 2025</td>
+                            <td class="p-4 text-green-400">Delivered</td>
+                            <td class="p-4">March 9, 2025</td>
+                            <td class="p-4">
+                                <button class="px-4 py-2 bg-gray-500 text-black font-bold rounded-lg hover:bg-gray-600 transition">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="w-screen min-h-[40vh] bg-gray-900 text-white py-16 px-0 flex justify-center items-center">
+            <div class="w-full text-center bg-gray-950 bg-opacity-80 p-10 shadow-2xl border border-yellow-500 backdrop-blur-lg rounded-none">
+                <h2 class="text-5xl font-extrabold text-yellow-400 drop-shadow-lg uppercase tracking-wide">View and update Your Inventory</h2>
+                <p class="text-2xl text-gray-300 font-medium mt-4">Keep track of your donations, stock, and supplies in one place.</p>
+                
+                <a href="#" class="mt-6 inline-block px-8 py-4 bg-yellow-500 text-black text-xl font-bold rounded-full shadow-md hover:bg-yellow-600 transition duration-300">Manage Inventory</a>
+            </div>
+        </section>
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Payment History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <section class="max-w-7xl mx-auto py-12 px-6">
+        <h2 class="text-5xl font-extrabold text-yellow-400 text-center mb-8">Payment History</h2>
+        <p class="text-lg text-gray-300 text-center mb-6">Track all payments received from users.</p>
+        
+        <!-- Date Filter -->
+        <div class="mb-6 text-center">
+            <label for="dateFilter" class="text-xl font-semibold">Filter by Date:</label>
+            <input type="date" id="dateFilter" class="ml-2 p-3 rounded-md bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+        </div>
+
+        <!-- Payment History Table -->
+        <div class="overflow-x-auto bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+            <table class="w-full text-left border-collapse text-lg">
+                <thead>
+                    <tr class="bg-yellow-500 text-black">
+                        <th class="p-4">Transaction ID</th>
+                        <th class="p-4">User Name</th>
+                        <th class="p-4">Institution</th>
+                        <th class="p-4">Amount</th>
+                        <th class="p-4">Payment Date</th>
+                        <th class="p-4">Purpose</th>
+                        <th class="p-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-gray-900 text-gray-300">
+                    <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                        <td class="p-4">#TXN00123</td>
+                        <td class="p-4">Amit Sharma</td>
+                        <td class="p-4">Hope Orphanage</td>
+                        <td class="p-4">₹5,000</td>
+                        <td class="p-4">March 10, 2025</td>
+                        <td class="p-4">Food Donation</td>
+                        <td class="p-4 text-green-400">Completed</td>
+                    </tr>
+                    <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                        <td class="p-4">#TXN00456</td>
+                        <td class="p-4">Priya Mehta</td>
+                        <td class="p-4">Elderly Care Home</td>
+                        <td class="p-4">₹10,000</td>
+                        <td class="p-4">March 8, 2025</td>
+                        <td class="p-4">Medical Supplies</td>
+                        <td class="p-4 text-green-400">Completed</td>
+                    </tr>
+                    <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                        <td class="p-4">#TXN00789</td>
+                        <td class="p-4">Rahul Verma</td>
+                        <td class="p-4">Children's Shelter</td>
+                        <td class="p-4">₹3,000</td>
+                        <td class="p-4">March 5, 2025</td>
+                        <td class="p-4">Books & Education</td>
+                        <td class="p-4 text-green-400">Completed</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="relative w-screen min-h-[10vh] bg-gray-900 text-white py-12 px-0">
+        <div class="relative z-10 w-full text-center bg-gray-950 bg-opacity-40 p-10 shadow-2xl border-t border-b border-yellow-500 backdrop-blur-lg rounded-lg">
+            <!-- Full-Width Clickable Background Image -->
+            <a href="#" class="absolute inset-0 block">
+                <img src="https://media.gettyimages.com/id/496276728/photo/group-of-happy-gypsy-indian-children-desert-village-india.jpg?s=612x612&w=gi&k=20&c=B37mpIc7Y2xUY6yNRLfnuu5NCHd7O3oD4MaaJ--arDI=" class="w-full h-full object-cover blur-lg opacity-40" alt="Support Background">
+            </a>
+            
+            <h2 class="text-5xl font-extrabold text-yellow-400 drop-shadow-lg uppercase tracking-wide relative">Support & Assistance</h2>
+            <p class="text-2xl text-gray-300 font-medium mt-4 relative">Need help? Our dedicated support team is available 24/7.</p>
+            
+            <!-- Support Options -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 relative">
+                <a href="#" class="bg-gray-800 bg-opacity-40 backdrop-blur-lg p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300 block">
+                    <h3 class="text-2xl font-semibold text-yellow-400">Live Chat</h3>
+                    <p class="text-gray-400 mt-4">Instantly connect with our support agents.</p>
+                    <span class="mt-6 inline-block px-6 py-3 bg-yellow-500 text-black font-bold rounded-full shadow-md hover:bg-yellow-600 transition duration-300">Start Chat</span>
+                </a>
+                
+                <a href="mailto:support@example.com" class="bg-gray-800 bg-opacity-40 backdrop-blur-lg p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300 block">
+                    <h3 class="text-2xl font-semibold text-yellow-400">Email Support</h3>
+                    <p class="text-gray-400 mt-4">Email us and get a response within 24 hours.</p>
+                    <span class="mt-6 inline-block px-6 py-3 bg-yellow-500 text-black font-bold rounded-full shadow-md hover:bg-yellow-600 transition duration-300">Email Us</span>
+                </a>
+                
+                <a href="tel:+1234567890" class="bg-gray-800 bg-opacity-40 backdrop-blur-lg p-6 rounded-lg shadow-lg border border-gray-700 hover:scale-105 transition duration-300 block">
+                    <h3 class="text-2xl font-semibold text-yellow-400">Call Support</h3>
+                    <p class="text-gray-400 mt-4">Speak directly with our experts.</p>
+                    <span class="mt-6 inline-block px-6 py-3 bg-yellow-500 text-black font-bold rounded-full shadow-md hover:bg-yellow-600 transition duration-300">Call Now</span>
+                </a>
+            </div>
+    
+            <!-- FAQs Section -->
+            <div class="mt-16 relative">
+                <h3 class="text-3xl font-bold text-yellow-400">Frequently Asked Questions</h3>
+                <div class="mt-8 space-y-6">
+                    <details class="bg-gray-800 bg-opacity-40 backdrop-blur-lg p-5 rounded-lg border border-gray-700">
+                        <summary class="text-lg font-semibold text-yellow-400 cursor-pointer">How do I raise a request?</summary>
+                        <p class="mt-2 text-gray-400">Go to the "Raise Request" section, fill out the form, and submit your details.</p>
+                    </details>
+                    <details class="bg-gray-800 bg-opacity-40 backdrop-blur-lg p-5 rounded-lg border border-gray-700">
+                        <summary class="text-lg font-semibold text-yellow-400 cursor-pointer">How can I track my request status?</summary>
+                        <p class="mt-2 text-gray-400">Visit the "Request Status" section for real-time updates.</p>
+                    </details>
+                  
+                    
+                </div>
+            </div>
+        </div>
+    </section>  
+        </div>
+    <footer class="relative bg-[#050a18] text-gray-300 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            
+            <!-- 🌟 Newsletter Section -->
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-extrabold text-white tracking-wide drop-shadow-lg">
+                    Stay Connected with <span class="text-yellow-400"><a href="#" class="text-white font-extrabold text-4xl tracking-widest uppercase">
+                        <span class="text-yellow-400">शक्ति</span>Link
+                    </a>
+        </span>
+                </h2>
+                <p class="text-gray-400 mt-4 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Join our community & get the latest health updates, expert advice, and innovations in telemedicine.
+                </p>
+                <div class="mt-8 flex justify-center">
+                    <input type="email" placeholder="Enter your email"
+                        class="w-96 px-6 py-4 rounded-l-lg bg-white/10 border border-gray-500 text-gray-200 focus:outline-none focus:ring-2 focus:ring-yellow-400 transition placeholder-gray-400">
+                    <button class="px-8 py-4 bg-yellow-500 text-gray-900 rounded-r-lg text-lg font-semibold hover:bg-yellow-600 transition-all hover:scale-105 shadow-lg">
+                        Subscribe →
+                    </button>
+                </div>
+            </div>
+        </div>
+            <!-- 🌟 Footer Links Section -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-gray-400">
+                
+                <!-- About ArogyaVani -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">About ShaktiLink</h3>
+                    <p class="leading-relaxed text-lg">
+                        End Hunger, Nourish Lives – Your generosity has the power to transform lives. Every meal you provide brings hope, strength, and a chance for a brighter future. Join us in making a lasting impact, one donation at a time.
+                    </p>
+                </div>
+    
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🔎 Find Reqest</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">📹 Donate</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">💊 Shop</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🧪 Reviews</li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center">🔧 Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Us -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">Contact Us</h3>
+                    <p class="text-lg flex items-center gap-2">
+                        📧 <a href="mailto:support@arogyavani.com" class="hover:text-yellow-400 transition-all">support@arogyavani.com</a>
+                    </p>
+                    <p class="text-lg mt-3 flex items-center gap-2">
+                        📞 <a href="tel:+18001234567" class="hover:text-yellow-400 transition-all">+91 800 123 4567</a>
+                    </p>
+                </div>
+    
+                <!-- Social Media Links -->
+                <div class="space-y-4">
+                    <h3 class="text-white text-2xl font-bold">Follow Us</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">📘 Facebook</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">🐦 Twitter</a></li>
+                        <li><a href="#" class="hover:text-yellow-400 transition-all text-lg flex items-center gap-2">📸 Instagram</a></li>
+                    </ul>
+                </div>
+    
+            </div>
+    
+            <!-- 🌟 Elegant Divider -->
+            <div class="mt-16 border-t border-gray-700 opacity-50"></div>
+    
+            <!-- 🌟 Bottom Footer -->
+            <div class="mt-10 flex flex-col sm:flex-row justify-between items-center text-gray-500 text-lg">
+                <p>&copy; 2025 <span class="text-yellow-400 font-semibold">ShaktiLink</span>. All rights reserved.</p>
+                <ul class="flex space-x-6 mt-4 sm:mt-0">
+                    <li><a href="#" class="hover:text-yellow-400 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-yellow-400 transition">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer> 
+    <script>
+    window.addEventListener("scroll", function () {
+        const navbar = document.getElementById("navbar");
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    // Mobile Menu Toggle
+    const navbar = document.getElementById("navbar");
+    const menuBtn = document.getElementById("menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    // Toggle Mobile Menu & Hamburger Animation
+    menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        mobileMenu.classList.toggle("active");
+        menuBtn.classList.toggle("active"); // Toggle animation
+    });
+
+    // Navbar Scroll Effect
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+    document.getElementById("sign-in-btn").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("profile-dropdown").classList.toggle("hidden");
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function(event) {
+        if (!document.getElementById("sign-in-btn").contains(event.target) && 
+            !document.getElementById("profile-dropdown").contains(event.target)) {
+            document.getElementById("profile-dropdown").classList.add("hidden");
+        }
+    });  
+</script>
+</body>
+</html>

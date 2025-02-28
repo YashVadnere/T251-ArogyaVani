@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raise a Request</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-white">
+    <section class="max-w-4xl mx-auto bg-gray-900 text-white p-8 rounded-xl shadow-2xl border border-yellow-500 mt-12 animate-fadeIn">
+        <h2 class="text-4xl font-extrabold text-yellow-400 text-center mb-6 drop-shadow-lg">Raise a Request</h2>
+        
+        <form action="#" method="POST" class="space-y-6" onsubmit="return validateForm()">
+            <!-- Institution Name -->
+            <div>
+                <label class="block text-lg font-medium">Institution Name</label>
+                <input type="text" name="institution_name" required class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+                <p id="institutionError" class="text-red-500 text-sm hidden">Institution name is required.</p>
+            </div>
+            
+            <!-- Contact Person -->
+            <div>
+                <label class="block text-lg font-medium">Contact Person</label>
+                <input type="text" name="contact_person" required class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+            </div>
+            
+            <!-- Contact Email -->
+            <div>
+                <label class="block text-lg font-medium">Contact Email</label>
+                <input type="email" name="contact_email" required class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+            </div>
+            
+            <!-- Contact Phone -->
+            <div>
+                <label class="block text-lg font-medium">Contact Phone</label>
+                <input type="tel" name="contact_phone" required pattern="[0-9]{10}" class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+                <p id="phoneError" class="text-red-500 text-sm hidden">Enter a valid 10-digit phone number.</p>
+            </div>
+            
+            <!-- Category of Request -->
+            <div>
+                <label class="block text-lg font-medium">Category of Request</label>
+                <select name="category" required class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+                    <option value="food">Food</option>
+                    <option value="clothes">Clothes</option>
+                    <option value="medical">Medical Supplies</option>
+                    <option value="books">Books</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <!-- Request Details -->
+            <div>
+                <label class="block text-lg font-medium">Request Details</label>
+                <textarea name="details" required class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400" rows="4" placeholder="Describe your needs in detail..."></textarea>
+            </div>
+            
+            <!-- Upload Supporting Documents -->
+            <div>
+                <label class="block text-lg font-medium">Upload Supporting Documents (Images/PDFs)</label>
+                <input type="file" name="documents" accept="image/*,.pdf" multiple class="w-full mt-2 p-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="px-8 py-4 bg-yellow-500 text-black text-lg font-bold rounded-full shadow-lg hover:bg-yellow-600 transition duration-300">
+                    Submit Request
+                </button>
+            </div>
+        </form>
+    </section>
+    
+    <script>
+        function validateForm() {
+            let phoneInput = document.querySelector("input[name='contact_phone']");
+            let phoneError = document.getElementById("phoneError");
+            
+            if (!/^[0-9]{10}$/.test(phoneInput.value)) {
+                phoneError.classList.remove("hidden");
+                return false;
+            } else {
+                phoneError.classList.add("hidden");
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

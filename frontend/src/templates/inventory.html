@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institute Inventory - Hope Orphanage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <section class="w-screen min-h-screen py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl font-extrabold text-yellow-400 text-center mb-8">Hope Orphanage Inventory</h2>
+            <p class="text-lg text-gray-300 text-center mb-6">A detailed monthly record of all received and used items.</p>
+            
+            <!-- Date Search Bar -->
+            <div class="mb-6 text-center">
+                <label for="dateFilter" class="text-xl font-semibold">Filter by Date:</label>
+                <input type="date" id="dateFilter" class="ml-2 p-3 rounded-md bg-gray-800 border border-gray-700 text-white focus:ring-2 focus:ring-yellow-400">
+            </div>
+
+            <!-- Detailed Inventory Transactions -->
+            <div class="overflow-x-auto bg-gray-800 p-6 rounded-lg shadow-xl border border-gray-700">
+                <h3 class="text-3xl font-bold text-yellow-400 mb-4 text-center">Comprehensive Inventory Log</h3>
+                <table class="w-full text-left border-collapse text-lg">
+                    <thead>
+                        <tr class="bg-yellow-500 text-black">
+                            <th class="p-4">Date</th>
+                            <th class="p-4">Item Name</th>
+                            <th class="p-4">Category</th>
+                            <th class="p-4">Quantity Received</th>
+                            <th class="p-4">Quantity Used</th>
+                            <th class="p-4">Supplier</th>
+                            <th class="p-4">Received By</th>
+                            <th class="p-4">Condition</th>
+                            <th class="p-4">Usage Purpose</th>
+                            <th class="p-4">Current Stock</th>
+                            <th class="p-4">Urgency Level</th>
+                            <th class="p-4">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-gray-900 text-gray-300">
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">01/03/2025</td>
+                            <td class="p-4">Rice (50kg)</td>
+                            <td class="p-4">Food</td>
+                            <td class="p-4">5 Bags</td>
+                            <td class="p-4">2 Bags</td>
+                            <td class="p-4">XYZ Suppliers</td>
+                            <td class="p-4">John Doe</td>
+                            <td class="p-4">Good</td>
+                            <td class="p-4">Daily meals</td>
+                            <td class="p-4">3 Bags</td>
+                            <td class="p-4">High</td>
+                            <td class="p-4">Need replenishment soon</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">05/03/2025</td>
+                            <td class="p-4">First Aid Kits</td>
+                            <td class="p-4">Medical</td>
+                            <td class="p-4">15 Kits</td>
+                            <td class="p-4">5 Kits</td>
+                            <td class="p-4">ABC Health Supplies</td>
+                            <td class="p-4">Dr. Smith</td>
+                            <td class="p-4">Excellent</td>
+                            <td class="p-4">Emergency use</td>
+                            <td class="p-4">10 Kits</td>
+                            <td class="p-4">Critical</td>
+                            <td class="p-4">Urgent refill required</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">10/03/2025</td>
+                            <td class="p-4">Blankets</td>
+                            <td class="p-4">Clothing</td>
+                            <td class="p-4">30 Pieces</td>
+                            <td class="p-4">10 Pieces</td>
+                            <td class="p-4">Warm Supplies Ltd.</td>
+                            <td class="p-4">Emily Clark</td>
+                            <td class="p-4">Good</td>
+                            <td class="p-4">Winter preparedness</td>
+                            <td class="p-4">20 Pieces</td>
+                            <td class="p-4">Low</td>
+                            <td class="p-4">Sufficient for now</td>
+                        </tr>
+                        <tr class="border-b border-gray-700 hover:bg-gray-800 transition">
+                            <td class="p-4">15/03/2025</td>
+                            <td class="p-4">Storybooks</td>
+                            <td class="p-4">Education</td>
+                            <td class="p-4">50 Books</td>
+                            <td class="p-4">5 Books</td>
+                            <td class="p-4">Educational Trust</td>
+                            <td class="p-4">Mark Watson</td>
+                            <td class="p-4">New</td>
+                            <td class="p-4">Children's library</td>
+                            <td class="p-4">45 Books</td>
+                            <td class="p-4">Moderate</td>
+                            <td class="p-4">Need additional storage space</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

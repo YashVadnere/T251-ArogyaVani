@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 flex justify-center items-center min-h-screen">
+
+    <div class="bg-white shadow-2xl rounded-2xl p-6 w-full max-w-lg">
+        <!-- App Name & Form Title -->
+        <div class="flex justify-between items-center border-b pb-4 mb-4">
+            <h1 class="text-xl font-bold text-indigo-600">ShaktiLink</h1>
+            <h2 class="text-lg font-semibold text-gray-800">New Transaction</h2>
+        </div>
+
+        <!-- Transaction Form -->
+        <form id="transactionForm">
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold">Name</label>
+                <input type="text" id="name" placeholder="Enter Name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-600" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold">Currency (INR)</label>
+                <input type="number" id="currency" value="1" step="0.01" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-600" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold">Quantity</label>
+                <input type="number" id="quantity" placeholder="Enter Quantity" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-600" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold">Item Purchased</label>
+                <input type="text" id="item" placeholder="Enter Item Name" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-600" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700 font-semibold">Total Amount (INR)</label>
+                <input type="number" id="totalAmount" placeholder="Enter Amount" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-600" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg hover:bg-indigo-700 transition">Submit Transaction</button>
+        </form>
+
+        <!-- Success Message -->
+        <p id="successMessage" class="hidden text-green-600 text-center font-semibold mt-4">Transaction Recorded Successfully!</p>
+    </div>
+
+    <script>
+        document.getElementById("transactionForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("successMessage").classList.remove("hidden");
+        });
+    </script>
+
+</body>
+</html>
